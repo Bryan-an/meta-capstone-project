@@ -7,15 +7,20 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "format:check": "prettier --check .",
+    "format:write": "prettier --write .",
     "prepare": "husky"
   },
   "dependencies": {
     "@commitlint/config-conventional": "19.8.0",
     "commitizen": "4.3.1",
     "commitlint": "19.8.0",
+    "eslint-config-prettier": "10.1.2",
     "husky": "9.1.7",
     "lint-staged": "15.5.1",
     "next": "15.3.0",
+    "prettier": "3.5.3",
+    "prettier-plugin-tailwindcss": "0.6.11",
     "react": "19.0.0",
     "react-dom": "19.0.0"
   },
@@ -38,6 +43,9 @@
     }
   },
   "lint-staged": {
+    "*.{js,jsx,ts,tsx,css,md,json,mjs}": [
+      "prettier --write"
+    ],
     "*.{js,jsx,ts,tsx}": [
       "eslint --fix"
     ]
