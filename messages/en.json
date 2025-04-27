@@ -1,0 +1,14 @@
+{
+  "HomePage": {
+    "title": "Welcome to Little Lemon",
+    "description": "Your favorite place for Mediterranean cuisine."
+  },
+  "Navigation": {
+    "home": "Home",
+    "about": "About",
+    "menu": "Menu",
+    "reservations": "Reservations",
+    "orderOnline": "Order Online",
+    "login": "Login"
+  }
+}
