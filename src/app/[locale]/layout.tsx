@@ -2,60 +2,96 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
-import { ReactNode } from 'react';
-import '../globals.css';
+import { ReactNode, Suspense } from 'react';
 import { notFound } from 'next/navigation';
 import { locales } from '@/i18n/routing';
+import '../globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
 
-// Define Locale type locally
+/**
+ * Supported locales for the application.
+ */
 type Locale = (typeof locales)[number];
 
+/**
+ * Static metadata for the root layout.
+ */
 export const metadata: Metadata = {
   title: 'Little Lemon Restaurant',
   description: 'Reserve a table at Little Lemon',
 };
 
+/**
+ * Props for the RootLayout component.
+ */
 interface RootLayoutProps {
+  /** The child elements to render within the layout. */
   children: ReactNode;
+  /** The route parameters, expected to contain the locale. */
   params: Promise<{
     locale: string;
   }>;
 }
 
+/**
+ * Root layout component for localized routes.
+ *
+ * @remarks
+ * This asynchronous server component handles:
+ * - Awaiting and validating the locale from route parameters.
+ * - Setting the locale context for `next-intl` using `setRequestLocale`.
+ * - Fetching locale-specific messages using `getMessages`.
+ * - Wrapping children with `NextIntlClientProvider` to make messages available
+ *   to client components.
+ * - Setting the HTML lang attribute.
+ *
+ * @param props - The properties for the layout component.
+ * @returns The rendered root layout element.
+ */
 export default async function RootLayout(props: RootLayoutProps) {
   const { children } = props;
-  const { locale } = await props.params;
+  let locale: string;
 
-  // Enable static rendering & provide context *before* validation
-  // This might resolve the "await params" error by setting context earlier.
-  setRequestLocale(locale);
-  console.log(`[layout.tsx] Called setRequestLocale with: ${locale}`);
+  // Await and validate locale from params
+  try {
+    const params = await props.params;
+    locale = params.locale;
 
-  // Re-enable validation
-  if (!locales.includes(locale as Locale)) {
-    console.error(`[layout.tsx] Invalid locale param: ${locale}`);
-    notFound();
+    if (!locales.includes(locale as Locale)) {
+      // Use a more specific error or log here if needed
+      throw new Error(`Invalid locale: ${locale}`);
+    }
+  } catch (error) {
+    // Log the error or handle it more gracefully if needed
+    console.error('Error processing locale params:', error);
+    notFound(); // Trigger 404 if locale is invalid or params fail
   }
 
+  // Set request locale for static rendering and server component context
+  setRequestLocale(locale);
+
+  // Load messages for the validated locale
   let messages;
+
   try {
-    console.log(
-      `[layout.tsx] Attempting getMessages (implicitly for locale set in request.ts)`,
-    );
     messages = await getMessages();
-    console.log(`[layout.tsx] Successfully got messages`);
   } catch (error) {
-    console.error(`[layout.tsx] Error in getMessages:`, error);
+    console.error(`Error loading messages for locale ${locale}:`, error);
+    // Decide if message loading failure should cause a 404 or render fallback
     notFound();
   }
 
   return (
     <html lang={locale}>
+      {/*
+       * suppressHydrationWarning is added to the body tag to prevent warnings
+       * caused by browser extensions modifying the DOM before hydration.
+       */}
       <body className={inter.className} suppressHydrationWarning>
         <NextIntlClientProvider locale={locale} messages={messages}>
-          {children}
+          {/* Wrap children in Suspense if needed for streaming/loading states */}
+          <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
         </NextIntlClientProvider>
       </body>
     </html>

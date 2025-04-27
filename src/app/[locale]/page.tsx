@@ -1,23 +1,25 @@
 import { useTranslations } from 'next-intl';
-// import { setRequestLocale } from 'next-intl/server'; // Remove
 
-// No longer need params if context is set by request.ts
-// export default function HomePage({ params: { locale } }: { params: { locale: string }}) {
+/**
+ * The main home page component.
+ *
+ * @remarks
+ * This component fetches translations using the `useTranslations` hook with the
+ * 'HomePage' namespace.
+ * It relies on the locale context being set by the RootLayout.
+ * No explicit `setRequestLocale` is needed here as layout handles it.
+ *
+ * @returns The rendered main page content.
+ */
 export default function HomePage() {
-  // // Set the locale context **before** using next-intl APIs (REMOVED)
-  // try {
-  //   setRequestLocale(locale);
-  // } catch (error) {
-  //   console.error(`[page.tsx] Error calling setRequestLocale for locale ${locale}:`, error);
-  // }
-
   const t = useTranslations('HomePage');
 
   return (
     <main>
+      {/* Consider using semantic headings (h1 only once per page ideally) */}
       <h1>{t('title')}</h1>
       <p>{t('description')}</p>
-      {/* Add other page components here */}
+      {/* Future page components can be added here */}
     </main>
   );
 }
