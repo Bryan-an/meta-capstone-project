@@ -2,6 +2,7 @@ import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { FlatCompat } from '@eslint/eslintrc';
 import unicornPlugin from 'eslint-plugin-unicorn';
+import tsdocPlugin from 'eslint-plugin-tsdoc';
 import eslintConfigPrettier from 'eslint-config-prettier';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -16,6 +17,7 @@ const eslintConfig = [
   {
     plugins: {
       unicorn: unicornPlugin,
+      tsdoc: tsdocPlugin,
     },
     rules: {
       'unicorn/filename-case': [
@@ -40,6 +42,7 @@ const eslintConfig = [
           ],
         },
       ],
+      'tsdoc/syntax': 'warn',
     },
     files: ['src/**/*.{js,jsx,ts,tsx}'],
   },
