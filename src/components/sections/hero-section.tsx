@@ -9,7 +9,7 @@ import { Link } from '@/i18n/routing';
 export async function HeroSection() {
   const t = await getTranslations('Hero');
   return (
-    <section className="bg-primary-dark px-4 py-16 text-white md:px-8 lg:px-16">
+    <section className="bg-primary px-4 py-16 text-white md:px-8 lg:px-16">
       <div className="container mx-auto grid items-center gap-8 md:grid-cols-2">
         {/* Text Content */}
         <div className="space-y-6">
@@ -20,11 +20,7 @@ export async function HeroSection() {
             {t('subtitle')}
           </h2>
           <p className="text-lg text-gray-200">{t('description')}</p>
-          <Button
-            asChild
-            size="lg"
-            className="bg-primary-light font-bold text-black hover:bg-yellow-300"
-          >
+          <Button asChild size="lg" variant="secondary">
             <Link href="/reservations">{t('reserveButton')}</Link>
           </Button>
         </div>
