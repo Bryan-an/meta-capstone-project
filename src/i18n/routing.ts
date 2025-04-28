@@ -1,3 +1,5 @@
+import { createNavigation } from 'next-intl/navigation';
+
 /**
  * List of supported locales in the application.
  * Using `as const` ensures type safety.
@@ -9,8 +11,6 @@ export const locales = ['en', 'es'] as const;
  */
 export const defaultLocale = 'en';
 
-// The `pathnames` object holds pairs of internal
-// and external paths, separated by locale.
 /**
  * Defines mapping between internal route paths and potentially localized
  * external paths.
@@ -61,3 +61,18 @@ export const localePrefix = undefined;
  * navigation.
  */
 export type AppPathnames = keyof typeof pathnames;
+
+/**
+ * Creates configured navigation components and hooks for the application.
+ *
+ * @remarks
+ * Exports `Link`, `redirect`, `usePathname`, `useRouter` pre-configured with
+ * the application's locales, pathnames, and locale prefix strategy.
+ * These should be imported and used throughout the application for
+ * locale-aware navigation.
+ */
+export const { Link, redirect, usePathname, useRouter } = createNavigation({
+  locales,
+  localePrefix,
+  pathnames,
+});

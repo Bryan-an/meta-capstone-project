@@ -10,5 +10,32 @@
     "reservations": "Reservas",
     "orderOnline": "Pedir en Línea",
     "login": "Iniciar Sesión"
+  },
+  "Hero": {
+    "title": "Little Lemon",
+    "subtitle": "Chicago",
+    "description": "Somos un restaurante mediterráneo familiar, enfocado en recetas tradicionales servidas con un toque moderno.",
+    "reserveButton": "Reservar una Mesa",
+    "imageAlt": "Chef sosteniendo un plato de bruschetta en el restaurante"
+  },
+  "Specials": {
+    "title": "¡Especiales de esta semana!",
+    "menuButton": "Menú en Línea",
+    "orderLink": "Pedir a domicilio"
+  },
+  "TestimonialCard": {
+    "rating": "Calificación",
+    "outOf5": "de 5 estrellas"
+  },
+  "Testimonials": {
+    "title": "Testimonios"
+  },
+  "About": {
+    "title": "Little Lemon",
+    "subtitle": "Chicago",
+    "description1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "description2": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    "imageAlt1": "Propietarios Mario y Adrián A",
+    "imageAlt2": "Propietarios Mario y Adrián B"
   }
 }

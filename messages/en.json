@@ -10,5 +10,32 @@
     "reservations": "Reservations",
     "orderOnline": "Order Online",
     "login": "Login"
+  },
+  "Hero": {
+    "title": "Little Lemon",
+    "subtitle": "Chicago",
+    "description": "We are a family owned Mediterranean restaurant, focused on traditional recipes served with a modern twist.",
+    "reserveButton": "Reserve a Table",
+    "imageAlt": "Chef holding a plate of bruschetta in the restaurant"
+  },
+  "Specials": {
+    "title": "This week's specials!",
+    "menuButton": "Online Menu",
+    "orderLink": "Order a delivery"
+  },
+  "TestimonialCard": {
+    "rating": "Rating",
+    "outOf5": "out of 5 stars"
+  },
+  "Testimonials": {
+    "title": "Testimonials"
+  },
+  "About": {
+    "title": "Little Lemon",
+    "subtitle": "Chicago",
+    "description1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "description2": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    "imageAlt1": "Owners Mario and Adrian A",
+    "imageAlt2": "Owners Mario and Adrian B"
   }
 }
