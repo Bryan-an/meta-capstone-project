@@ -21,7 +21,8 @@
   "Specials": {
     "title": "¡Especiales de esta semana!",
     "menuButton": "Menú en Línea",
-    "orderLink": "Pedir a domicilio"
+    "orderLink": "Pedir a domicilio",
+    "noSpecialsMessage": "No hay especiales disponibles esta semana."
   },
   "TestimonialCard": {
     "rating": "Calificación",

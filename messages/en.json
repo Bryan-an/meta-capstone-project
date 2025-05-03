@@ -21,7 +21,8 @@
   "Specials": {
     "title": "This week's specials!",
     "menuButton": "Online Menu",
-    "orderLink": "Order a delivery"
+    "orderLink": "Order a delivery",
+    "noSpecialsMessage": "No specials available this week."
   },
   "TestimonialCard": {
     "rating": "Rating",

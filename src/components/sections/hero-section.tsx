@@ -10,16 +10,19 @@ export async function HeroSection() {
   const t = await getTranslations('Hero');
   return (
     <section className="bg-primary px-4 py-16 text-white md:px-8 lg:px-16">
-      <div className="container mx-auto grid items-center gap-8 md:grid-cols-2">
+      <div className="container mx-auto grid max-w-6xl items-center gap-8 md:grid-cols-2">
         {/* Text Content */}
         <div className="space-y-6">
           <h1 className="text-primary-light font-display text-6xl font-bold">
             {t('title')}
           </h1>
+
           <h2 className="font-regular font-display text-4xl text-white">
             {t('subtitle')}
           </h2>
+
           <p className="text-lg text-gray-200">{t('description')}</p>
+
           <Button asChild size="lg" variant="secondary">
             <Link href="/reservations">{t('reserveButton')}</Link>
           </Button>
