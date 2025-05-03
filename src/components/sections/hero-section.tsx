@@ -28,11 +28,11 @@ export async function HeroSection() {
         {/* Image Content */}
         <div className="relative mt-8 h-80 overflow-hidden rounded-lg md:mt-0 md:h-96 lg:h-[450px]">
           <Image
-            src="/images/restaurant_food.jpg" // Maintain placeholder for hero
+            src="/images/restaurant-food.webp"
             alt={t('imageAlt')}
             fill
             className="object-cover"
-            priority // Prioritize loading the hero image
+            priority
             sizes="(max-width: 768px) 100vw, 50vw"
           />
         </div>

@@ -23,10 +23,9 @@ export async function AboutSection() {
 
         {/* Image Content */}
         <div className="relative h-96">
-          {/* Use two images stacked or positioned as per Figma */}
           <div className="absolute top-0 right-10 z-10 h-80 w-64 overflow-hidden rounded-lg lg:h-96 lg:w-72">
             <Image
-              src="/images/Mario_and_Adrian_A.jpg" // Placeholder
+              src="/images/mario-and-adrian-a.webp"
               alt={t('imageAlt1')}
               fill
               className="object-cover"
@@ -36,7 +35,7 @@ export async function AboutSection() {
           </div>
           <div className="absolute bottom-0 left-0 h-80 w-64 overflow-hidden rounded-lg lg:h-96 lg:w-72">
             <Image
-              src="/images/Mario_and_Adrian_B.jpg" // Placeholder
+              src="/images/mario-and-adrian-b.webp"
               alt={t('imageAlt2')}
               fill
               className="object-cover"
