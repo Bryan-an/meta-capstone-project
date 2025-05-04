@@ -13,15 +13,16 @@ export async function StarRating({ rating }: { rating: number }) {
     <span
       key={i}
       className={i < validRating ? 'text-yellow-500' : 'text-gray-400'}
-      aria-hidden="true" // Hide decorative stars from screen readers
+      aria-hidden="true"
     >
       ★
     </span>
   ));
+
   return (
     <div
       className="flex"
-      role="img" // Indicate this div represents an image/graphic
+      role="img"
       aria-label={`${t('rating')} ${validRating} ${t('outOf5')}`}
     >
       {stars}

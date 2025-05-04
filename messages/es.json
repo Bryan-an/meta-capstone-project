@@ -29,7 +29,8 @@
     "outOf5": "de 5 estrellas"
   },
   "Testimonials": {
-    "title": "Testimonios"
+    "title": "Testimonios",
+    "noTestimonialsMessage": "Aún no hay testimonios de clientes."
   },
   "About": {
     "title": "Little Lemon",

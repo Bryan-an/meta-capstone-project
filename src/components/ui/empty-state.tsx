@@ -14,6 +14,10 @@ interface EmptyStateProps extends React.HTMLAttributes<HTMLDivElement> {
   icon?: React.ElementType;
   /** Optional: Custom class names for the icon wrapper. */
   iconClassName?: string;
+  /** Optional: Custom class names for the title element. */
+  titleClassName?: string;
+  /** Optional: Custom class names for the description element. */
+  descriptionClassName?: string;
 }
 
 /**
@@ -25,6 +29,8 @@ interface EmptyStateProps extends React.HTMLAttributes<HTMLDivElement> {
  * @param  icon - The icon component to display.
  * @param  className - Additional classes for the main container.
  * @param  iconClassName - Additional classes for the icon wrapper.
+ * @param  titleClassName - Additional classes for the title element.
+ * @param  descriptionClassName - Additional classes for the description element.
  * @param  props - Other HTMLDivElement attributes.
  */
 export function EmptyState({
@@ -33,6 +39,8 @@ export function EmptyState({
   icon: Icon = FileSearch,
   className,
   iconClassName,
+  titleClassName,
+  descriptionClassName,
   ...props
 }: EmptyStateProps) {
   return (
@@ -55,10 +63,17 @@ export function EmptyState({
       </div>
 
       {/* Title */}
-      <h3 className="mb-2 text-xl font-semibold text-gray-800">{title}</h3>
+      <h3
+        className={cn(
+          'mb-2 text-xl font-semibold text-gray-800',
+          titleClassName,
+        )}
+      >
+        {title}
+      </h3>
 
       {/* Description */}
-      <p className="text-gray-600">{description}</p>
+      <p className={cn('text-gray-600', descriptionClassName)}>{description}</p>
     </div>
   );
 }

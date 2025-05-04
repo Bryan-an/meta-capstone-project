@@ -1,9 +1,9 @@
 import { getTranslations } from 'next-intl/server';
-import { SpecialCard } from '@/components/cards/special-card'; // Import the new card component
+import { SpecialCard } from '@/components/cards/special-card';
 import { Button } from '@/components/ui/button';
-import { EmptyState } from '@/components/ui/empty-state'; // Import the new component
+import { EmptyState } from '@/components/ui/empty-state';
 import { Link } from '@/i18n/routing';
-import { type Database } from '@/types/supabase'; // Import generated types
+import { type Database } from '@/types/supabase';
 
 /**
  * Type for the menu item data structure.
@@ -56,8 +56,10 @@ export async function SpecialsSection({ specials }: SpecialsSectionProps) {
   return (
     <section className="px-4 py-16 md:px-8 lg:px-16">
       <div className="container mx-auto max-w-6xl">
-        <div className="mb-12 flex items-center justify-between">
-          <h2 className="text-primary text-4xl font-medium">{t('title')}</h2>
+        <div className="mb-6 flex flex-col items-center justify-between gap-6 sm:mb-12 sm:flex-row">
+          <h2 className="text-primary text-center text-3xl font-medium sm:text-start sm:text-4xl">
+            {t('title')}
+          </h2>
 
           <Button asChild size="lg">
             <Link href="/menu">{t('menuButton')}</Link>
