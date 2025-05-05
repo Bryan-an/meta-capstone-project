@@ -9,7 +9,11 @@
     "menu": "Menú",
     "reservations": "Reservas",
     "orderOnline": "Pedir en Línea",
-    "login": "Iniciar Sesión"
+    "login": "Iniciar Sesión",
+    "logoAlt": "Logo de Little Lemon",
+    "homepageLinkAriaLabel": "Ir a la página principal de Little Lemon",
+    "mobileNavTitle": "Menú de Navegación",
+    "openMenuAriaLabel": "Abrir menú"
   },
   "Hero": {
     "title": "Little Lemon",

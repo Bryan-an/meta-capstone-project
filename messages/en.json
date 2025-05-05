@@ -9,7 +9,11 @@
     "menu": "Menu",
     "reservations": "Reservations",
     "orderOnline": "Order Online",
-    "login": "Login"
+    "login": "Login",
+    "logoAlt": "Little Lemon Logo",
+    "homepageLinkAriaLabel": "Go to Little Lemon homepage",
+    "mobileNavTitle": "Navigation Menu",
+    "openMenuAriaLabel": "Open menu"
   },
   "Hero": {
     "title": "Little Lemon",

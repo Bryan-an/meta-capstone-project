@@ -30,10 +30,27 @@ export const pathnames = {
   // If all locales use the same pathname, a
   // single external path can be provided.
   '/': '/',
-  '/about': '/about',
-  '/menu': '/menu',
-  '/reservations': '/reservations',
-  '/order-online': '/order-online',
+  '/about': {
+    en: '/about',
+    es: '/nosotros',
+  },
+  '/menu': {
+    en: '/menu',
+    es: '/menu',
+  },
+  '/reservations': {
+    en: '/reservations',
+    es: '/reservaciones',
+  },
+  '/order-online': {
+    en: '/order-online',
+    es: '/pedir-en-linea',
+  },
+  // Add the login path
+  '/login': {
+    en: '/login',
+    es: '/iniciar-sesion',
+  },
 
   // If locales use different paths, you can
   // specify each external path per locale.
@@ -54,7 +71,7 @@ export const pathnames = {
  * Other options include `as-needed` (prefix only for non-default locales) or
  * `never` (no prefix, requires careful domain/cookie setup).
  */
-export const localePrefix = undefined;
+export const localePrefix = 'as-needed';
 
 /**
  * Type representing the keys of the `pathnames` object, used for type-safe
@@ -71,8 +88,10 @@ export type AppPathnames = keyof typeof pathnames;
  * These should be imported and used throughout the application for
  * locale-aware navigation.
  */
-export const { Link, redirect, usePathname, useRouter } = createNavigation({
-  locales,
-  localePrefix,
-  pathnames,
-});
+export const { Link, redirect, usePathname, useRouter, getPathname } =
+  createNavigation({
+    defaultLocale,
+    locales,
+    localePrefix,
+    pathnames,
+  });
