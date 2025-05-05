@@ -43,5 +43,25 @@
     "description2": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     "imageAlt1": "Owners Mario and Adrian A",
     "imageAlt2": "Owners Mario and Adrian B"
+  },
+  "Footer": {
+    "navTitle": "Navigation",
+    "contactTitle": "Contact Us",
+    "socialTitle": "Follow Us",
+    "addressPlaceholder": "123 Lemon Grove, Chicago, IL",
+    "phonePlaceholder": "(555) 123-4567",
+    "emailPlaceholder": "contact@littlelemon.com",
+    "socialFacebookAria": "Visit our Facebook page",
+    "socialInstagramAria": "Visit our Instagram profile",
+    "socialTwitterAria": "Visit our Twitter profile",
+    "copyright": "© 2025 Little Lemon. All rights reserved.",
+    "home": "Home",
+    "about": "About",
+    "menu": "Menu",
+    "reservations": "Reservations",
+    "orderOnline": "Order Online",
+    "login": "Login",
+    "logoAlt": "Little Lemon Logo",
+    "homepageLinkAriaLabel": "Go to Little Lemon homepage"
   }
 }
