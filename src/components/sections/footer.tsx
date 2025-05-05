@@ -4,16 +4,16 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/routing';
 import type { pathnames } from '@/i18n/routing';
-import { Facebook, Instagram, Twitter } from 'lucide-react'; // Import icons
+import { Facebook, Instagram, Twitter } from 'lucide-react';
 
 /**
  * Footer component for the Little Lemon site.
  * Displays logo, navigation, contact info, and social links.
  */
 export function Footer() {
-  const t = useTranslations('Footer'); // Assuming a 'Footer' namespace
+  const t = useTranslations('Footer');
 
-  // Define footer navigation items - adjust based on Figma design
+  /** Footer navigation items */
   const footerNavItems: { href: keyof typeof pathnames; labelKey: string }[] = [
     { href: '/', labelKey: 'home' },
     { href: '/about', labelKey: 'about' },
