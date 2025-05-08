@@ -13,17 +13,17 @@ export type Database = {
         Row: {
           created_at: string;
           id: number;
-          name: string;
+          name_i18n: Json;
         };
         Insert: {
           created_at?: string;
           id?: never;
-          name: string;
+          name_i18n: Json;
         };
         Update: {
           created_at?: string;
           id?: never;
-          name?: string;
+          name_i18n?: Json;
         };
         Relationships: [];
       };
