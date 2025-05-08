@@ -71,7 +71,7 @@ export const pathnames = {
  * Other options include `as-needed` (prefix only for non-default locales) or
  * `never` (no prefix, requires careful domain/cookie setup).
  */
-export const localePrefix = 'as-needed';
+export const localePrefix = 'always';
 
 /**
  * Type representing the keys of the `pathnames` object, used for type-safe
