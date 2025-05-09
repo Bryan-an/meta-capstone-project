@@ -1,4 +1,4 @@
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, getLocale } from 'next-intl/server';
 import { MessageSquareText } from 'lucide-react';
 import { TestimonialCard } from '@/components/cards/testimonial-card';
 import { EmptyState } from '@/components/ui/empty-state';
@@ -27,6 +27,7 @@ export async function TestimonialsSection({
   testimonials,
 }: TestimonialsSectionProps) {
   const t = await getTranslations('Testimonials');
+  const locale = await getLocale();
 
   if (!testimonials || testimonials.length === 0) {
     return (
@@ -50,9 +51,29 @@ export async function TestimonialsSection({
         </h2>
 
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-          {testimonials.map((testimonial) => (
-            <TestimonialCard key={testimonial.id} testimonial={testimonial} />
-          ))}
+          {testimonials.map((testimonial) => {
+            if (!testimonial.quote_i18n) {
+              return null;
+            }
+
+            const i18nQuote = testimonial.quote_i18n as {
+              [key: string]: string;
+            };
+
+            const localizedQuote =
+              i18nQuote[locale] || i18nQuote['en'] || 'Quote not available.';
+
+            return (
+              <TestimonialCard
+                key={testimonial.id}
+                id={testimonial.id}
+                rating={testimonial.rating}
+                imageUrl={testimonial.image_url}
+                customerName={testimonial.customer_name}
+                quoteText={localizedQuote}
+              />
+            );
+          })}
         </div>
       </div>
     </section>

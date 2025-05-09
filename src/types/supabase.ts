@@ -107,7 +107,7 @@ export type Database = {
           id: number;
           image_url: string | null;
           is_featured: boolean;
-          quote: string;
+          quote_i18n: Json;
           rating: number;
           updated_at: string;
         };
@@ -117,7 +117,7 @@ export type Database = {
           id?: never;
           image_url?: string | null;
           is_featured?: boolean;
-          quote: string;
+          quote_i18n: Json;
           rating: number;
           updated_at?: string;
         };
@@ -127,7 +127,7 @@ export type Database = {
           id?: never;
           image_url?: string | null;
           is_featured?: boolean;
-          quote?: string;
+          quote_i18n?: Json;
           rating?: number;
           updated_at?: string;
         };
