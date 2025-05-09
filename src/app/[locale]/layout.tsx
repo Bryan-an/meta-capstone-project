@@ -22,6 +22,9 @@ type Locale = (typeof locales)[number];
 export const metadata: Metadata = {
   title: 'Little Lemon Restaurant',
   description: 'Reserve a table at Little Lemon',
+  icons: {
+    icon: '/favicon.ico',
+  },
 };
 
 /**
