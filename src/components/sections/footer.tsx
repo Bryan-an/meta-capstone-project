@@ -35,7 +35,8 @@ export function Footer() {
                 alt={t('logoAlt')}
                 width={120}
                 height={160}
-                className="mb-4 h-auto"
+                className="mb-4 h-auto max-w-full"
+                style={{ width: 'auto' }}
               />
             </Link>
           </div>
