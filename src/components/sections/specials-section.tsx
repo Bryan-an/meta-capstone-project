@@ -1,4 +1,4 @@
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, getLocale } from 'next-intl/server';
 import { SpecialCard } from '@/components/cards/special-card';
 import { Button } from '@/components/ui/button';
 import { EmptyState } from '@/components/ui/empty-state';
@@ -34,7 +34,8 @@ interface SpecialsSectionProps {
  */
 export async function SpecialsSection({ specials }: SpecialsSectionProps) {
   const t = await getTranslations('Specials');
-  const orderLinkText = t('orderLink'); // Get translated text once
+  const locale = await getLocale();
+  const orderLinkText = t('orderLink');
 
   /**
    * Handle case where specials might be fetched but empty.
@@ -68,18 +69,34 @@ export async function SpecialsSection({ specials }: SpecialsSectionProps) {
 
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {specials.map((special) => {
-            // Extract the menu item, handling potential array or null
             const menuItem = Array.isArray(special.menu_items)
-              ? special.menu_items[0] // Take the first if it's an array
+              ? special.menu_items[0]
               : special.menu_items;
 
-            // Skip rendering if the joined menu_item is null
-            if (!menuItem) return null;
+            if (!menuItem || !menuItem.i18n_content) return null;
+
+            // Safely access i18n_content properties
+            const i18nContent = menuItem.i18n_content as {
+              [key: string]: { name?: string; description?: string };
+            };
+
+            const localizedName =
+              i18nContent[locale]?.name ||
+              i18nContent['en']?.name ||
+              'Unnamed Item';
+
+            const localizedDescription =
+              i18nContent[locale]?.description ||
+              i18nContent['en']?.description ||
+              null;
 
             return (
               <SpecialCard
                 key={special.id}
-                item={menuItem}
+                name={localizedName}
+                description={localizedDescription}
+                price={menuItem.price}
+                imageUrl={menuItem.image_url}
                 orderLinkText={orderLinkText}
               />
             );

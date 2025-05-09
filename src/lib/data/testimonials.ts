@@ -13,6 +13,7 @@ export type TestimonialItem =
  */
 export async function getTestimonials(limit = 4): Promise<TestimonialItem[]> {
   const supabase = await createClient();
+
   const { data, error } = await supabase
     .from('testimonials')
     .select('*')

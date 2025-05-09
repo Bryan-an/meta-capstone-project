@@ -18,6 +18,7 @@ export type FetchedSpecial = Pick<
  */
 export async function getSpecials(limit = 3): Promise<FetchedSpecial[]> {
   const supabase = await createClient();
+
   const { data, error } = await supabase
     .from('specials')
     .select(
@@ -25,7 +26,7 @@ export async function getSpecials(limit = 3): Promise<FetchedSpecial[]> {
       id,
       start_date,
       end_date,
-      menu_items ( id, name, description, price, image_url, category_id )
+      menu_items ( id, i18n_content, price, image_url, category_id, created_at, updated_at )
     `,
     )
     .order('created_at', { ascending: false })

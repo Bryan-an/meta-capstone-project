@@ -31,30 +31,27 @@ export type Database = {
         Row: {
           category_id: number | null;
           created_at: string;
-          description: string | null;
+          i18n_content: Json;
           id: number;
           image_url: string | null;
-          name: string;
           price: number;
           updated_at: string;
         };
         Insert: {
           category_id?: number | null;
           created_at?: string;
-          description?: string | null;
+          i18n_content: Json;
           id?: never;
           image_url?: string | null;
-          name: string;
           price: number;
           updated_at?: string;
         };
         Update: {
           category_id?: number | null;
           created_at?: string;
-          description?: string | null;
+          i18n_content?: Json;
           id?: never;
           image_url?: string | null;
-          name?: string;
           price?: number;
           updated_at?: string;
         };
