@@ -20,10 +20,65 @@ type Locale = (typeof locales)[number];
  * Static metadata for the root layout.
  */
 export const metadata: Metadata = {
+  metadataBase: new URL('http://localhost:3000'), // TODO: Replace with actual domain
   title: 'Little Lemon Restaurant',
-  description: 'Reserve a table at Little Lemon',
+  description:
+    'Reserve a table at Little Lemon. Delicious food and a great atmosphere.',
+  keywords: [
+    'restaurant',
+    'food',
+    'dining',
+    'mediterranean',
+    'chicago',
+    'little lemon',
+  ],
+  authors: [{ name: 'Little Lemon Team', url: 'http://localhost:3000' }], // TODO: Replace with actual domain
   icons: {
     icon: '/favicon.ico',
+    apple: '/images/apple-icon.png',
+  },
+  openGraph: {
+    title: 'Little Lemon Restaurant - Book Your Table',
+    description:
+      'Experience authentic Mediterranean cuisine at Little Lemon. Reserve your table online!',
+    url: 'http://localhost:3000', // TODO: Replace with actual domain
+    siteName: 'Little Lemon Restaurant',
+    images: [
+      {
+        url: '/images/opengraph-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Little Lemon Restaurant Interior or Signature Dish',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Little Lemon Restaurant - Book Your Table',
+    description:
+      'Experience authentic Mediterranean cuisine at Little Lemon. Reserve your table online!',
+    images: ['/images/opengraph-image.jpg'],
+    creator: '@littlelemon',
+  },
+  alternates: {
+    canonical: '/',
+    languages: {
+      'en-US': '/en',
+      'es-ES': '/es',
+    },
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 };
 
