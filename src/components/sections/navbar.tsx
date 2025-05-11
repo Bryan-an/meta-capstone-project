@@ -15,6 +15,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
+  SheetDescription,
 } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
@@ -120,6 +121,10 @@ export function Navbar() {
                 <SheetTitle className="sr-only">
                   {t('mobileNavTitle')}
                 </SheetTitle>
+
+                <SheetDescription className="sr-only">
+                  {t('mobileNavDescription')}
+                </SheetDescription>
               </SheetHeader>
 
               <Separator />

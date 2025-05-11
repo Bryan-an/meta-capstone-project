@@ -13,6 +13,7 @@
     "logoAlt": "Little Lemon Logo",
     "homepageLinkAriaLabel": "Go to Little Lemon homepage",
     "mobileNavTitle": "Navigation Menu",
+    "mobileNavDescription": "Main navigation links for the website.",
     "openMenuAriaLabel": "Open menu"
   },
   "Hero": {
