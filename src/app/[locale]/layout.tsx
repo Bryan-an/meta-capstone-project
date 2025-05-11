@@ -6,8 +6,6 @@ import { ReactNode } from 'react';
 import { notFound } from 'next/navigation';
 import { locales } from '@/i18n/routing';
 import '@/app/globals.css';
-import { Navbar } from '@/components/sections/navbar';
-import { Footer } from '@/components/sections/footer';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -150,11 +148,7 @@ export default async function RootLayout(props: RootLayoutProps) {
        */}
       <body className={inter.className} suppressHydrationWarning>
         <NextIntlClientProvider locale={locale} messages={messages}>
-          <div className="flex min-h-screen flex-col">
-            <Navbar />
-            <main className="flex-grow">{children}</main>
-            <Footer />
-          </div>
+          {children}
         </NextIntlClientProvider>
       </body>
     </html>

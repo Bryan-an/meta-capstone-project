@@ -29,11 +29,12 @@ const initialState: FormState = null;
  * Renders the login page for user authentication.
  *
  * This client component provides a form for users to sign in using their email and password.
- * It utilizes the `signInWithEmailPassword` server action and `useActionState` (formerly `useFormState`)
+ * It utilizes the `signInWithEmailPassword` server action and `useActionState`
  * for form handling and displaying validation or submission errors.
  * On successful login, it redirects the user to the homepage.
  * Internationalization is handled by `next-intl`.
  * Shadcn UI components are used for styling.
+ * The page is wrapped by `(auth)/layout.tsx` which provides centering and background.
  *
  * @returns A React component representing the login page.
  */
@@ -54,76 +55,74 @@ export default function LoginPage(): React.ReactElement {
   }, [state, router]);
 
   return (
-    <div className="bg-background flex min-h-screen flex-col items-center justify-center p-4">
-      <Card className="w-full max-w-sm">
-        <CardHeader>
-          <CardTitle className="text-2xl">{t('title')}</CardTitle>
-          <CardDescription>{t('description')}</CardDescription>
-        </CardHeader>
+    <Card className="w-full max-w-sm">
+      <CardHeader>
+        <CardTitle className="text-2xl">{t('title')}</CardTitle>
+        <CardDescription>{t('description')}</CardDescription>
+      </CardHeader>
 
-        <form action={formAction}>
-          <CardContent className="grid gap-4">
-            <div className="grid gap-2">
-              <Label htmlFor="email">{t('emailLabel')}</Label>
+      <form action={formAction}>
+        <CardContent className="grid gap-4">
+          <div className="grid gap-2">
+            <Label htmlFor="email">{t('emailLabel')}</Label>
 
-              <Input
-                id="email"
-                name="email"
-                type="email"
-                placeholder={t('emailPlaceholder')}
-                required
-              />
+            <Input
+              id="email"
+              name="email"
+              type="email"
+              placeholder={t('emailPlaceholder')}
+              required
+            />
 
-              {state?.fieldErrors?.email && (
-                <p className="text-destructive text-xs">
-                  {state.fieldErrors.email.join(', ')}
-                </p>
-              )}
-            </div>
-
-            <div className="grid gap-2">
-              <Label htmlFor="password">{t('passwordLabel')}</Label>
-
-              <Input
-                id="password"
-                name="password"
-                type="password"
-                placeholder={t('passwordPlaceholder')}
-                required
-              />
-
-              {state?.fieldErrors?.password && (
-                <p className="text-destructive text-xs">
-                  {state.fieldErrors.password.join(', ')}
-                </p>
-              )}
-            </div>
-
-            {state?.type === 'error' && !state.fieldErrors && (
-              <Alert variant="destructive" className="mt-2">
-                <Terminal className="h-4 w-4" />
-                <AlertTitle>{tCommon('errorTitle')}</AlertTitle>
-                <AlertDescription>{state.message}</AlertDescription>
-              </Alert>
+            {state?.fieldErrors?.email && (
+              <p className="text-destructive text-xs">
+                {state.fieldErrors.email.join(', ')}
+              </p>
             )}
-          </CardContent>
+          </div>
 
-          <CardFooter className="mt-6 flex flex-col items-stretch">
-            <SubmitButton text={t('submitButton')} />
+          <div className="grid gap-2">
+            <Label htmlFor="password">{t('passwordLabel')}</Label>
 
-            <p className="mt-4 text-center text-sm">
-              {t('noAccountPrompt')}{' '}
-              <Link
-                href="/signup"
-                className="text-primary font-medium hover:underline"
-              >
-                {t('signUpLink')}
-              </Link>
-            </p>
-          </CardFooter>
-        </form>
-      </Card>
-    </div>
+            <Input
+              id="password"
+              name="password"
+              type="password"
+              placeholder={t('passwordPlaceholder')}
+              required
+            />
+
+            {state?.fieldErrors?.password && (
+              <p className="text-destructive text-xs">
+                {state.fieldErrors.password.join(', ')}
+              </p>
+            )}
+          </div>
+
+          {state?.type === 'error' && !state.fieldErrors && (
+            <Alert variant="destructive" className="mt-2">
+              <Terminal className="h-4 w-4" />
+              <AlertTitle>{tCommon('errorTitle')}</AlertTitle>
+              <AlertDescription>{state.message}</AlertDescription>
+            </Alert>
+          )}
+        </CardContent>
+
+        <CardFooter className="mt-6 flex flex-col items-stretch">
+          <SubmitButton text={t('submitButton')} />
+
+          <p className="mt-4 text-center text-sm">
+            {t('noAccountPrompt')}{' '}
+            <Link
+              href="/signup"
+              className="text-primary font-medium hover:underline"
+            >
+              {t('signUpLink')}
+            </Link>
+          </p>
+        </CardFooter>
+      </form>
+    </Card>
   );
 }
 
