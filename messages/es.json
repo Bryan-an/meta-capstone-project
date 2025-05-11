@@ -75,7 +75,28 @@
     "invalidEmail": "Por favor, introduce una dirección de correo electrónico válida.",
     "passwordRequired": "Se requiere contraseña.",
     "validationError": "Por favor, corrige los errores en el formulario.",
-    "unknownValidationError": "Ocurrió un error de validación inesperado. Por favor, revisa tus datos e inténtalo de nuevo.",
-    "passwordNoMatch": "Las contraseñas no coinciden."
+    "unknownValidationError": "Ocurrió un error de validación inesperado. Por favor, revisa tu entrada e inténtalo de nuevo.",
+    "passwordNoMatch": "Las contraseñas no coinciden.",
+    "genericAuthError": "Ocurrió un error durante la autenticación. Por favor, inténtalo de nuevo o contacta con soporte."
+  },
+  "AuthErrorPage": {
+    "title": "Error de Autenticación",
+    "defaultErrorMessage": "Ocurrió un error inesperado durante el proceso de autenticación. Por favor, inténtalo de nuevo.",
+    "backToLogin": "Volver al Inicio de Sesión"
+  },
+  "LocaleSwitcher": {
+    "label": "Cambiar idioma",
+    "locale": "{locale, select, en {Inglés} es {Español} other {Desconocido}}"
+  },
+  "NotFoundPage": {
+    "title": "Página No Encontrada",
+    "description": "Lo sentimos, la página que buscas no existe o ha sido movida.",
+    "backToHome": "Volver al Inicio"
+  },
+  "ErrorPage": {
+    "title": "¡Algo salió mal!",
+    "description": "Ocurrió un error inesperado. Por favor, inténtalo de nuevo más tarde o contacta con soporte si el problema persiste.",
+    "backToHome": "Volver al Inicio",
+    "tryAgain": "Intentar de Nuevo"
   }
 }

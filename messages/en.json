@@ -76,6 +76,27 @@
     "passwordRequired": "Password is required.",
     "validationError": "Please correct the errors in the form.",
     "unknownValidationError": "An unexpected validation error occurred. Please check your input and try again.",
-    "passwordNoMatch": "Passwords do not match."
+    "passwordNoMatch": "Passwords do not match.",
+    "genericAuthError": "An error occurred during authentication. Please try again or contact support."
+  },
+  "AuthErrorPage": {
+    "title": "Authentication Error",
+    "defaultErrorMessage": "An unexpected error occurred during the authentication process. Please try again.",
+    "backToLogin": "Back to Login"
+  },
+  "LocaleSwitcher": {
+    "label": "Change language",
+    "locale": "{locale, select, en {English} es {Spanish} other {Unknown}}"
+  },
+  "NotFoundPage": {
+    "title": "Page Not Found",
+    "description": "Sorry, the page you are looking for does not exist or has been moved.",
+    "backToHome": "Back to Home"
+  },
+  "ErrorPage": {
+    "title": "Something went wrong!",
+    "description": "An unexpected error occurred. Please try again later or contact support if the problem persists.",
+    "backToHome": "Back to Home",
+    "tryAgain": "Try Again"
   }
 }
