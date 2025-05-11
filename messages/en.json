@@ -65,6 +65,25 @@
     "logoAlt": "Little Lemon Logo",
     "homepageLinkAriaLabel": "Go to Little Lemon homepage"
   },
+  "LocaleSwitcher": {
+    "label": "Change language",
+    "locale": "{locale, select, en {English} es {Spanish} other {Unknown}}"
+  },
+  "NotFoundPage": {
+    "title": "Page Not Found",
+    "description": "Sorry, the page you are looking for does not exist or has been moved.",
+    "backToHome": "Back to Home"
+  },
+  "ErrorPage": {
+    "title": "Something went wrong!",
+    "description": "An unexpected error occurred. Please try again later or contact support if the problem persists.",
+    "backToHome": "Back to Home",
+    "tryAgain": "Try Again"
+  },
+  "Common": {
+    "errorTitle": "Error",
+    "loading": "Loading..."
+  },
   "AuthActions": {
     "requiredFields": "Email and password are required.",
     "passwordTooShort": "Password must be at least 6 characters long.",
@@ -84,19 +103,15 @@
     "defaultErrorMessage": "An unexpected error occurred during the authentication process. Please try again.",
     "backToLogin": "Back to Login"
   },
-  "LocaleSwitcher": {
-    "label": "Change language",
-    "locale": "{locale, select, en {English} es {Spanish} other {Unknown}}"
-  },
-  "NotFoundPage": {
-    "title": "Page Not Found",
-    "description": "Sorry, the page you are looking for does not exist or has been moved.",
-    "backToHome": "Back to Home"
-  },
-  "ErrorPage": {
-    "title": "Something went wrong!",
-    "description": "An unexpected error occurred. Please try again later or contact support if the problem persists.",
-    "backToHome": "Back to Home",
-    "tryAgain": "Try Again"
+  "LoginPage": {
+    "title": "Login",
+    "description": "Enter your credentials to access your account.",
+    "emailLabel": "Email",
+    "emailPlaceholder": "m@example.com",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "••••••••",
+    "submitButton": "Login",
+    "noAccountPrompt": "Don't have an account?",
+    "signUpLink": "Sign up"
   }
 }

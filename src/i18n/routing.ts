@@ -46,10 +46,13 @@ export const pathnames = {
     en: '/order-online',
     es: '/pedir-en-linea',
   },
-  // Add the login path
   '/login': {
     en: '/login',
     es: '/iniciar-sesion',
+  },
+  '/signup': {
+    en: '/signup',
+    es: '/registrarse',
   },
 
   // If locales use different paths, you can
