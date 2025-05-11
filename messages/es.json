@@ -114,6 +114,9 @@
     "noAccountPrompt": "¿No tienes una cuenta?",
     "signUpLink": "Regístrate",
     "showPassword": "Mostrar contraseña",
-    "hidePassword": "Ocultar contraseña"
+    "hidePassword": "Ocultar contraseña",
+    "signInWithGoogleButton": "Iniciar sesión con Google",
+    "googleSignInError": "No se pudo iniciar sesión con Google. Por favor, inténtalo de nuevo.",
+    "orContinueWith": "O continuar con"
   }
 }

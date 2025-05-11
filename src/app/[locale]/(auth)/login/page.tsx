@@ -2,7 +2,7 @@
 
 import { useActionState } from 'react';
 import { useFormStatus } from 'react-dom';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Label } from '@/components/ui/label';
@@ -22,6 +22,8 @@ import { Terminal, Eye, EyeOff } from 'lucide-react';
 import { signInWithEmailPassword } from '@/app/auth/actions';
 import type { FormState } from '@/types/actions';
 import { LoaderSpinner } from '@/components/ui/loader-spinner';
+import { createClient } from '@/lib/supabase/client';
+import { GoogleIcon } from '@/components/icons/google-icon';
 
 const initialState: FormState = null;
 
@@ -42,7 +44,9 @@ export default function LoginPage(): React.ReactElement {
   const t = useTranslations('LoginPage');
   const tCommon = useTranslations('Common');
   const router = useRouter();
+  const currentLocale = useLocale();
   const [showPassword, setShowPassword] = useState(false);
+  const [googleError, setGoogleError] = useState<string | null>(null);
 
   const [state, formAction] = useActionState(
     signInWithEmailPassword,
@@ -57,6 +61,38 @@ export default function LoginPage(): React.ReactElement {
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
+  };
+
+  const supabase = createClient();
+
+  const handleGoogleSignIn = async () => {
+    setGoogleError(null);
+
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback?locale=${currentLocale}`,
+        },
+      });
+
+      if (error) {
+        console.error('Google Sign-In Error:', error);
+        setGoogleError(error.message || t('googleSignInError'));
+      }
+      // On success, Supabase handles the redirect to Google.
+    } catch (err) {
+      console.error('Unexpected Google Sign-In Error:', err);
+
+      if (err instanceof Error) {
+        setGoogleError(err.message || t('googleSignInError'));
+      } else if (typeof err === 'string') {
+        setGoogleError(err || t('googleSignInError'));
+      } else {
+        // Fallback for other error types
+        setGoogleError(t('googleSignInError'));
+      }
+    }
   };
 
   return (
@@ -131,9 +167,39 @@ export default function LoginPage(): React.ReactElement {
               <AlertDescription>{state.message}</AlertDescription>
             </Alert>
           )}
+
+          <div className="relative my-4">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t" />
+            </div>
+
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-card text-muted-foreground px-2">
+                {t('orContinueWith')}
+              </span>
+            </div>
+          </div>
+
+          <Button
+            variant="outline"
+            onClick={handleGoogleSignIn}
+            className="w-full"
+            type="button"
+          >
+            <GoogleIcon className="h-4 w-4" />
+            {t('signInWithGoogleButton')}
+          </Button>
+
+          {googleError && (
+            <Alert variant="destructive" className="mt-4">
+              <Terminal className="h-4 w-4" />
+              <AlertTitle>{tCommon('errorTitle')}</AlertTitle>
+              <AlertDescription>{googleError}</AlertDescription>
+            </Alert>
+          )}
         </CardContent>
 
-        <CardFooter className="mt-6 flex flex-col items-stretch">
+        <CardFooter className="mt-4 flex flex-col items-stretch">
           <SubmitButton text={t('submitButton')} />
 
           <p className="mt-4 text-center text-sm">
