@@ -112,6 +112,8 @@
     "passwordPlaceholder": "••••••••",
     "submitButton": "Iniciar Sesión",
     "noAccountPrompt": "¿No tienes una cuenta?",
-    "signUpLink": "Regístrate"
+    "signUpLink": "Regístrate",
+    "showPassword": "Mostrar contraseña",
+    "hidePassword": "Ocultar contraseña"
   }
 }

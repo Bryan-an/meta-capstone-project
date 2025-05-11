@@ -112,6 +112,8 @@
     "passwordPlaceholder": "••••••••",
     "submitButton": "Login",
     "noAccountPrompt": "Don't have an account?",
-    "signUpLink": "Sign up"
+    "signUpLink": "Sign up",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password"
   }
 }

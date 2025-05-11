@@ -4,7 +4,7 @@ import { useActionState } from 'react';
 import { useFormStatus } from 'react-dom';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -18,7 +18,7 @@ import {
 } from '@/components/ui/card';
 import { Link } from '@/i18n/routing';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Terminal } from 'lucide-react';
+import { Terminal, Eye, EyeOff } from 'lucide-react';
 import { signInWithEmailPassword } from '@/app/auth/actions';
 import type { FormState } from '@/types/actions';
 import { LoaderSpinner } from '@/components/ui/loader-spinner';
@@ -42,6 +42,7 @@ export default function LoginPage(): React.ReactElement {
   const t = useTranslations('LoginPage');
   const tCommon = useTranslations('Common');
   const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
 
   const [state, formAction] = useActionState(
     signInWithEmailPassword,
@@ -53,6 +54,10 @@ export default function LoginPage(): React.ReactElement {
       router.push('/');
     }
   }, [state, router]);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   return (
     <Card className="w-full max-w-sm">
@@ -84,13 +89,33 @@ export default function LoginPage(): React.ReactElement {
           <div className="grid gap-2">
             <Label htmlFor="password">{t('passwordLabel')}</Label>
 
-            <Input
-              id="password"
-              name="password"
-              type="password"
-              placeholder={t('passwordPlaceholder')}
-              required
-            />
+            <div className="relative">
+              <Input
+                id="password"
+                name="password"
+                type={showPassword ? 'text' : 'password'}
+                placeholder={t('passwordPlaceholder')}
+                required
+                className="pr-10"
+              />
+
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                className="absolute top-0 right-0 h-full px-3 py-2 hover:bg-transparent"
+                onClick={togglePasswordVisibility}
+                aria-label={
+                  showPassword ? t('hidePassword') : t('showPassword')
+                }
+              >
+                {showPassword ? (
+                  <EyeOff className="h-4 w-4" aria-hidden="true" />
+                ) : (
+                  <Eye className="h-4 w-4" aria-hidden="true" />
+                )}
+              </Button>
+            </div>
 
             {state?.fieldErrors?.password && (
               <p className="text-destructive text-xs">
