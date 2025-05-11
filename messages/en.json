@@ -82,7 +82,8 @@
   },
   "Common": {
     "errorTitle": "Error",
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "successTitle": "Success"
   },
   "AuthActions": {
     "requiredFields": "Email and password are required.",
@@ -96,7 +97,17 @@
     "validationError": "Please correct the errors in the form.",
     "unknownValidationError": "An unexpected validation error occurred. Please check your input and try again.",
     "passwordNoMatch": "Passwords do not match.",
-    "genericAuthError": "An error occurred during authentication. Please try again or contact support."
+    "genericAuthError": "An unexpected error occurred. Please try again.",
+    "VerificationFailed": "Email verification failed. Please try again or contact support.",
+    "OAuthFailed": "OAuth authentication failed. Please try again or contact support.",
+    "MissingParameters": "Authentication callback is missing necessary parameters.",
+    "UserAlreadyRegistered": "This email is already registered. Please log in or use a different email.",
+    "InvalidCredentials": "Invalid login credentials. Please check your email and password.",
+    "EmailNotConfirmed": "Your email address has not been confirmed yet. Please check your inbox for the confirmation email.",
+    "RateLimitExceeded": "Too many attempts. Please try again later.",
+    "NetworkError": "A network error occurred. Please check your connection and try again.",
+    "PasswordTooShort": "Password must be at least 6 characters long.",
+    "EmailConfirmationSent": "Confirmation email sent. Please check your inbox to verify your account."
   },
   "AuthErrorPage": {
     "title": "Authentication Error",
@@ -105,7 +116,7 @@
   },
   "LoginPage": {
     "title": "Login",
-    "description": "Enter your credentials to access your account.",
+    "description": "Enter your email below to login to your account.",
     "emailLabel": "Email",
     "emailPlaceholder": "m@example.com",
     "passwordLabel": "Password",
@@ -118,5 +129,23 @@
     "signInWithGoogleButton": "Sign In with Google",
     "googleSignInError": "Could not sign in with Google. Please try again.",
     "orContinueWith": "Or continue with"
+  },
+  "SignUpPage": {
+    "title": "Create an Account",
+    "description": "Enter your details to sign up.",
+    "emailLabel": "Email",
+    "emailPlaceholder": "name@example.com",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "••••••••",
+    "confirmPasswordLabel": "Confirm Password",
+    "confirmPasswordPlaceholder": "••••••••",
+    "submitButton": "Create Account",
+    "alreadyHaveAccountPrompt": "Already have an account?",
+    "loginLink": "Log In",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "showConfirmPassword": "Show confirm password",
+    "hideConfirmPassword": "Hide confirm password",
+    "emailConfirmationMessage": "Account created! Please check your email to confirm your account."
   }
 }

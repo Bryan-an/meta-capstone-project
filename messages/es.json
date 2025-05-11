@@ -82,7 +82,8 @@
   },
   "Common": {
     "errorTitle": "Error",
-    "loading": "Cargando..."
+    "loading": "Cargando...",
+    "successTitle": "Éxito"
   },
   "AuthActions": {
     "requiredFields": "Se requieren correo electrónico y contraseña.",
@@ -96,7 +97,17 @@
     "validationError": "Por favor, corrige los errores en el formulario.",
     "unknownValidationError": "Ocurrió un error de validación inesperado. Por favor, revisa tu entrada e inténtalo de nuevo.",
     "passwordNoMatch": "Las contraseñas no coinciden.",
-    "genericAuthError": "Ocurrió un error durante la autenticación. Por favor, inténtalo de nuevo o contacta con soporte."
+    "genericAuthError": "Ocurrió un error inesperado. Por favor, inténtalo de nuevo.",
+    "VerificationFailed": "La verificación del correo electrónico falló. Por favor, inténtalo de nuevo o contacta con soporte.",
+    "OAuthFailed": "La autenticación OAuth falló. Por favor, inténtalo de nuevo o contacta con soporte.",
+    "MissingParameters": "Faltan parámetros necesarios para la devolución de llamada de autenticación.",
+    "UserAlreadyRegistered": "Este correo electrónico ya está registrado. Por favor, inicia sesión o utiliza un correo diferente.",
+    "InvalidCredentials": "Credenciales de inicio de sesión no válidas. Por favor, verifica tu correo y contraseña.",
+    "EmailNotConfirmed": "Tu dirección de correo electrónico aún no ha sido confirmada. Por favor, revisa tu bandeja de entrada para el correo de confirmación.",
+    "RateLimitExceeded": "Demasiados intentos. Por favor, inténtalo de nuevo más tarde.",
+    "NetworkError": "Ocurrió un error de red. Por favor, verifica tu conexión e inténtalo de nuevo.",
+    "PasswordTooShort": "La contraseña debe tener al menos 6 caracteres.",
+    "EmailConfirmationSent": "Correo de confirmación enviado. Por favor, revisa tu bandeja de entrada para verificar tu cuenta."
   },
   "AuthErrorPage": {
     "title": "Error de Autenticación",
@@ -105,7 +116,7 @@
   },
   "LoginPage": {
     "title": "Iniciar Sesión",
-    "description": "Ingresa tus credenciales para acceder a tu cuenta.",
+    "description": "Ingresa tu correo electrónico abajo para iniciar sesión en tu cuenta.",
     "emailLabel": "Correo Electrónico",
     "emailPlaceholder": "m@ejemplo.com",
     "passwordLabel": "Contraseña",
@@ -118,5 +129,23 @@
     "signInWithGoogleButton": "Iniciar sesión con Google",
     "googleSignInError": "No se pudo iniciar sesión con Google. Por favor, inténtalo de nuevo.",
     "orContinueWith": "O continuar con"
+  },
+  "SignUpPage": {
+    "title": "Crear una Cuenta",
+    "description": "Ingresa tus datos para registrarte.",
+    "emailLabel": "Correo Electrónico",
+    "emailPlaceholder": "nombre@ejemplo.com",
+    "passwordLabel": "Contraseña",
+    "passwordPlaceholder": "••••••••",
+    "confirmPasswordLabel": "Confirmar Contraseña",
+    "confirmPasswordPlaceholder": "••••••••",
+    "submitButton": "Crear Cuenta",
+    "alreadyHaveAccountPrompt": "¿Ya tienes una cuenta?",
+    "loginLink": "Iniciar Sesión",
+    "showPassword": "Mostrar contraseña",
+    "hidePassword": "Ocultar contraseña",
+    "showConfirmPassword": "Mostrar contraseña de confirmación",
+    "hideConfirmPassword": "Ocultar contraseña de confirmación",
+    "emailConfirmationMessage": "¡Cuenta creada! Por favor, revisa tu correo electrónico para confirmar tu cuenta."
   }
 }

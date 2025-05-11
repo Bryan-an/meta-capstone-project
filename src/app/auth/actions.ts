@@ -78,6 +78,10 @@ export async function signUpWithEmailPassword(
   const t = await getTranslations('AuthActions');
   const supabase = await createClient();
   const rawFormData = Object.fromEntries(formData.entries());
+
+  // Extract locale from formData, default to 'en' if not provided
+  const locale = (formData.get('locale') as string) || 'en';
+
   const validatedFields = SignUpSchema.safeParse(rawFormData);
   const validationErrorState = processZodErrors(validatedFields, t);
 
@@ -95,8 +99,8 @@ export async function signUpWithEmailPassword(
     options: {
       // emailRedirectTo should point to a page that handles the session,
       // often by exchanging the code for a session with Supabase.
-      // For now, we'll redirect to the homepage. You might need a dedicated page later.
-      emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback`,
+      // The callback route should be under [locale]
+      emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}/auth/callback`,
     },
   });
 
@@ -112,7 +116,7 @@ export async function signUpWithEmailPassword(
   revalidatePath('/');
 
   return {
-    message: t('signUpSuccess'),
+    message: t('emailConfirmationMessage'),
     type: 'success',
     timestamp: Date.now(),
   };
