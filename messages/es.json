@@ -64,5 +64,18 @@
     "login": "Iniciar Sesión",
     "logoAlt": "Logo de Little Lemon",
     "homepageLinkAriaLabel": "Ir a la página principal de Little Lemon"
+  },
+  "AuthActions": {
+    "requiredFields": "Se requieren correo electrónico y contraseña.",
+    "passwordTooShort": "La contraseña debe tener al menos 6 caracteres.",
+    "signUpError": "No se pudo registrar. Por favor, inténtalo de nuevo.",
+    "signUpSuccess": "¡Registro exitoso! Por favor, revisa tu correo electrónico para verificar tu cuenta.",
+    "signInError": "Credenciales de inicio de sesión inválidas. Por favor, inténtalo de nuevo.",
+    "signOutError": "Error al cerrar sesión: {errorMessage}",
+    "invalidEmail": "Por favor, introduce una dirección de correo electrónico válida.",
+    "passwordRequired": "Se requiere contraseña.",
+    "validationError": "Por favor, corrige los errores en el formulario.",
+    "unknownValidationError": "Ocurrió un error de validación inesperado. Por favor, revisa tus datos e inténtalo de nuevo.",
+    "passwordNoMatch": "Las contraseñas no coinciden."
   }
 }

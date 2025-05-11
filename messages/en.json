@@ -64,5 +64,18 @@
     "login": "Login",
     "logoAlt": "Little Lemon Logo",
     "homepageLinkAriaLabel": "Go to Little Lemon homepage"
+  },
+  "AuthActions": {
+    "requiredFields": "Email and password are required.",
+    "passwordTooShort": "Password must be at least 6 characters long.",
+    "signUpError": "Could not sign up. Please try again.",
+    "signUpSuccess": "Sign up successful! Please check your email to verify your account.",
+    "signInError": "Invalid login credentials. Please try again.",
+    "signOutError": "Error signing out: {errorMessage}",
+    "invalidEmail": "Please enter a valid email address.",
+    "passwordRequired": "Password is required.",
+    "validationError": "Please correct the errors in the form.",
+    "unknownValidationError": "An unexpected validation error occurred. Please check your input and try again.",
+    "passwordNoMatch": "Passwords do not match."
   }
 }

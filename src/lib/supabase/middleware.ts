@@ -2,26 +2,25 @@ import { createServerClient, type CookieOptions } from '@supabase/ssr';
 import { type NextRequest, NextResponse } from 'next/server';
 
 /**
- * Updates the user's session by handling cookies for Supabase authentication.
+ * Updates the user's session by refreshing it if necessary.
+ * This function is designed to be called from Next.js middleware.
  *
- * This function is designed to be used in Next.js middleware (`middleware.ts`).
- * It creates a server-side Supabase client using the request cookies and then
- * attempts to refresh the session if necessary.
+ * It creates a Supabase client configured for middleware, attempts to refresh
+ * the session by calling `supabase.auth.getUser()`, and ensures that cookies
+ * are correctly passed between the request and response to maintain session state.
  *
- * @param request - The incoming Next.js request object.
- * @returns A Next.js response object, potentially with updated cookies.
- *
- * @see https://supabase.com/docs/guides/auth/auth-helpers/nextjs#managing-session-with-middleware
+ * @param request - The incoming NextRequest object.
+ * @returns A NextResponse object, potentially with updated session cookies.
  */
-export async function updateSession(request: NextRequest) {
-  // Create a response object based on the incoming request
+export async function updateSession(
+  request: NextRequest,
+): Promise<NextResponse> {
   let response = NextResponse.next({
     request: {
       headers: request.headers,
     },
   });
 
-  // Create a Supabase client configured for server-side rendering using cookies
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -44,18 +43,19 @@ export async function updateSession(request: NextRequest) {
          * @param options - Cookie options (e.g., path, maxAge).
          */
         set(name: string, value: string, options: CookieOptions) {
-          // If the cookie is updated, update the cookies for the request and response
+          // If the cookie is set, update the request and response cookies.
           request.cookies.set({
             name,
             value,
             ...options,
           });
-          // Create a new response object to ensure headers are copied correctly
+
           response = NextResponse.next({
             request: {
               headers: request.headers,
             },
           });
+
           response.cookies.set({
             name,
             value,
@@ -70,18 +70,19 @@ export async function updateSession(request: NextRequest) {
          * @param options - Cookie options.
          */
         remove(name: string, options: CookieOptions) {
-          // If the cookie is removed, update the cookies for the request and response
+          // If the cookie is removed, update the request and response cookies.
           request.cookies.set({
             name,
             value: '',
             ...options,
           });
-          // Create a new response object
+
           response = NextResponse.next({
             request: {
               headers: request.headers,
             },
           });
+
           response.cookies.set({
             name,
             value: '',
@@ -92,11 +93,11 @@ export async function updateSession(request: NextRequest) {
     },
   );
 
-  // Refresh session if expired - required for Server Components
-  // This will handle session refresh for Server Components and Server Actions.
-  // It also returns the session data, although it's not used directly here.
+  // Refresh session if expired - `getUser()` will send a request to Supabase Auth
+  // to check the validity of the session and refresh it if necessary.
+  // The result of `getUser()` is not directly used here; its purpose is to trigger
+  // the session refresh mechanism within the Supabase client, which handles cookie updates.
   await supabase.auth.getUser();
 
-  // Return the potentially modified response object
   return response;
 }

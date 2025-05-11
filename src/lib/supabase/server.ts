@@ -2,30 +2,13 @@ import { createServerClient, type CookieOptions } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 
 /**
- * Creates a Supabase client instance specifically for use in server-side
- * environments within a Next.js application (Server Components, Route Handlers,
- * Server Actions).
- *
- * Utilizes `createServerClient` from `@supabase/ssr` and integrates with
- * Next.js's `cookies()` function to manage session persistence across requests.
- *
- * @remarks
- * This client relies on the Next.js `cookies` header store.
- * It includes cookie handling logic (`get`, `set`, `remove`) necessary for
- * the Supabase client to interact with the cookie store.
- * The `set` and `remove` operations include try-catch blocks because
- * Server Components cannot directly modify cookies; this task is delegated
- * to the middleware.
- *
- * Requires `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY`
- * environment variables to be set.
- *
- * @returns A Supabase client instance configured for server-side operations.
+ * Creates a Supabase client instance for server-side environments.
+ * This function is asynchronous to correctly await the cookie store.
+ * It is designed to be used in Server Components, Server Actions, and Route Handlers.
  */
 export async function createClient() {
   const cookieStore = await cookies();
 
-  // Create a server client with cookies to manage auth state
   return createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -41,7 +24,8 @@ export async function createClient() {
         },
         /**
          * Attempts to set a cookie in the Next.js cookie store.
-         * This might fail if called from a Server Component (expected behavior).
+         * This might fail if called from a Server Component (expected behavior,
+         * as middleware should handle session refresh).
          * @param name - The name of the cookie.
          * @param value - The value to set.
          * @param options - Cookie options.
@@ -53,6 +37,7 @@ export async function createClient() {
             // The `set` method was called from a Server Component.
             // This can be ignored if you have middleware refreshing
             // user sessions.
+            // console.warn('Supabase server client: Failed to set cookie in read-only context', { name });
           }
         },
         /**
@@ -65,9 +50,8 @@ export async function createClient() {
           try {
             cookieStore.set({ name, value: '', ...options });
           } catch {
-            // The `delete` method was called from a Server Component.
-            // This can be ignored if you have middleware refreshing
-            // user sessions.
+            // Similar to set, ignoring errors in read-only contexts.
+            // console.warn('Supabase server client: Failed to remove cookie in read-only context', { name });
           }
         },
       },
