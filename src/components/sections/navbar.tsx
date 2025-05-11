@@ -115,6 +115,7 @@ export function Navbar() {
                     height={33}
                     priority={false}
                     className="h-auto"
+                    style={{ width: 'auto' }}
                   />
                 </Link>
 
