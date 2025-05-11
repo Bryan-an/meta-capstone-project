@@ -107,7 +107,8 @@
     "RateLimitExceeded": "Demasiados intentos. Por favor, inténtalo de nuevo más tarde.",
     "NetworkError": "Ocurrió un error de red. Por favor, verifica tu conexión e inténtalo de nuevo.",
     "PasswordTooShort": "La contraseña debe tener al menos 6 caracteres.",
-    "EmailConfirmationSent": "Correo de confirmación enviado. Por favor, revisa tu bandeja de entrada para verificar tu cuenta."
+    "EmailConfirmationSent": "Correo de confirmación enviado. Por favor, revisa tu bandeja de entrada para verificar tu cuenta.",
+    "emailConfirmationMessage": "¡Cuenta creada! Por favor, revisa tu correo electrónico para confirmar tu cuenta."
   },
   "AuthErrorPage": {
     "title": "Error de Autenticación",

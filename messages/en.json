@@ -107,7 +107,8 @@
     "RateLimitExceeded": "Too many attempts. Please try again later.",
     "NetworkError": "A network error occurred. Please check your connection and try again.",
     "PasswordTooShort": "Password must be at least 6 characters long.",
-    "EmailConfirmationSent": "Confirmation email sent. Please check your inbox to verify your account."
+    "EmailConfirmationSent": "Confirmation email sent. Please check your inbox to verify your account.",
+    "emailConfirmationMessage": "Account created! Please check your email to confirm your account."
   },
   "AuthErrorPage": {
     "title": "Authentication Error",
