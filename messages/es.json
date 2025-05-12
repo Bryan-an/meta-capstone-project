@@ -84,7 +84,10 @@
   "Common": {
     "errorTitle": "Error",
     "loading": "Cargando...",
-    "successTitle": "Éxito"
+    "successTitle": "Éxito",
+    "requiredFields": "Por favor, completa todos los campos obligatorios.",
+    "genericError": "Ocurrió un error inesperado. Por favor, inténtalo más tarde.",
+    "goHome": "Ir a la Página Principal"
   },
   "AuthActions": {
     "requiredFields": "Se requieren correo electrónico y contraseña.",
@@ -114,7 +117,7 @@
   },
   "AuthErrorPage": {
     "title": "Error de Autenticación",
-    "defaultErrorMessage": "Ocurrió un error inesperado durante el proceso de autenticación. Por favor, inténtalo de nuevo.",
+    "defaultErrorMessage": "Algo salió mal durante la autenticación. Por favor, inténtalo de nuevo.",
     "backToLogin": "Volver al Inicio de Sesión"
   },
   "LoginPage": {
@@ -150,5 +153,25 @@
     "showConfirmPassword": "Mostrar contraseña de confirmación",
     "hideConfirmPassword": "Ocultar contraseña de confirmación",
     "emailConfirmationMessage": "¡Cuenta creada! Por favor, revisa tu correo electrónico para confirmar tu cuenta."
+  },
+  "ReservationsPage": {
+    "title": "Mis Reservas",
+    "newReservationButton": "Hacer una Nueva Reserva",
+    "noReservationsFound": "Aún no tienes reservas.",
+    "noReservationsFoundDescription": "¿Por qué no reservas tu próxima visita? ¡Solo te tomará un minuto!",
+    "reservationOn": "Reserva el {date}",
+    "atTime": "a las {time}",
+    "partySizeLabel": "Tamaño del Grupo",
+    "statusLabel": "Estado",
+    "tableLabel": "Mesa",
+    "notesLabel": "Tus Notas",
+    "bookedOn": "Reservado el {date}"
+  },
+  "ReservationStatus": {
+    "pending": "Pendiente",
+    "confirmed": "Confirmada",
+    "cancelled": "Cancelada",
+    "completed": "Completada",
+    "no-show": "No Presentado"
   }
 }

@@ -66,6 +66,10 @@ export const pathnames = {
     en: '/account',
     es: '/cuenta',
   },
+  '/reservations/new': {
+    en: '/reservations/new',
+    es: '/reservaciones/nueva',
+  },
 };
 
 /**

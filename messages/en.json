@@ -84,7 +84,10 @@
   "Common": {
     "errorTitle": "Error",
     "loading": "Loading...",
-    "successTitle": "Success"
+    "successTitle": "Success",
+    "requiredFields": "Please fill in all required fields.",
+    "genericError": "An unexpected error occurred. Please try again later.",
+    "goHome": "Go to Homepage"
   },
   "AuthActions": {
     "requiredFields": "Email and password are required.",
@@ -114,7 +117,7 @@
   },
   "AuthErrorPage": {
     "title": "Authentication Error",
-    "defaultErrorMessage": "An unexpected error occurred during the authentication process. Please try again.",
+    "defaultErrorMessage": "Something went wrong during authentication. Please try again.",
     "backToLogin": "Back to Login"
   },
   "LoginPage": {
@@ -150,5 +153,25 @@
     "showConfirmPassword": "Show confirm password",
     "hideConfirmPassword": "Hide confirm password",
     "emailConfirmationMessage": "Account created! Please check your email to confirm your account."
+  },
+  "ReservationsPage": {
+    "title": "My Reservations",
+    "newReservationButton": "Make a New Reservation",
+    "noReservationsFound": "You have no reservations yet.",
+    "noReservationsFoundDescription": "Why not book your next visit? It only takes a minute!",
+    "reservationOn": "Reservation on {date}",
+    "atTime": "at {time}",
+    "partySizeLabel": "Party Size",
+    "statusLabel": "Status",
+    "tableLabel": "Table",
+    "notesLabel": "Your Notes",
+    "bookedOn": "Booked on {date}"
+  },
+  "ReservationStatus": {
+    "pending": "Pending",
+    "confirmed": "Confirmed",
+    "cancelled": "Cancelled",
+    "completed": "Completed",
+    "no-show": "No-Show"
   }
 }

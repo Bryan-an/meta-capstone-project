@@ -16,11 +16,11 @@ export default async function HomePage() {
   const testimonials = await getTestimonials(4);
 
   return (
-    <main>
+    <>
       <HeroSection />
       <SpecialsSection specials={specials} />
       <TestimonialsSection testimonials={testimonials} />
       <AboutSection />
-    </main>
+    </>
   );
 }
