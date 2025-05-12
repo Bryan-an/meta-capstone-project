@@ -21,7 +21,7 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Menu, LogOut } from 'lucide-react';
 import { Link, pathnames } from '@/i18n/routing';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { type User } from '@supabase/supabase-js';
 import { signOut } from '@/app/auth/actions';
 
@@ -58,10 +58,11 @@ interface NavbarProps {
 export function Navbar({ user }: NavbarProps) {
   const t = useTranslations('Navigation');
   const tAuth = useTranslations('AuthActions');
+  const currentLocale = useLocale();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleSignOut = async () => {
-    await signOut();
+    await signOut(currentLocale);
     setIsMobileMenuOpen(false);
   };
 

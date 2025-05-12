@@ -165,18 +165,26 @@ export async function signInWithEmailPassword(
 
 /**
  * Handles user sign-out.
- * This action doesn't typically take prevState or formData if it's just a button click.
+ * This action will redirect the user to the localized login page.
+ * @param locale - The current locale of the user.
  */
-export async function signOut(): Promise<void> {
+export async function signOut(locale: string): Promise<void> {
   const t = await getTranslations('AuthActions');
   const supabase = await createClient();
   const { error } = await supabase.auth.signOut();
 
   if (error) {
     console.error(t('signOutError', { errorMessage: error.message }));
-    // Consider how to handle this for the user if not redirecting to an error page
+
+    // Redirect to the localized generic error page
+    redirect(
+      `/${locale}/auth/error?error=signOutError&message=${encodeURIComponent(
+        error.message,
+      )}`,
+    );
   }
 
   revalidatePath('/', 'layout');
-  redirect('/login'); // Redirect to the login page after sign out
+  const loginPath = `/${locale}/login`;
+  redirect(loginPath);
 }
