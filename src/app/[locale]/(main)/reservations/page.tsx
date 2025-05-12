@@ -14,7 +14,7 @@ import {
 } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { EmptyState } from '@/components/ui/empty-state';
-import { PlusCircle } from 'lucide-react';
+import { PlusCircle, AlertTriangle } from 'lucide-react';
 import { getSimpleLocalizedValue } from '@/lib/utils/localization';
 
 /**
@@ -35,6 +35,7 @@ export default async function ReservationsPage({
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'ReservationsPage' });
   const tCommon = await getTranslations({ locale, namespace: 'Common' });
+  const tErrorPage = await getTranslations({ locale, namespace: 'ErrorPage' });
   const supabase = await createClient();
 
   const tStatus = await getTranslations({
@@ -61,8 +62,15 @@ export default async function ReservationsPage({
           <EmptyState
             title={tCommon('errorTitle')}
             description={tCommon('genericError')}
-            iconClassName="bg-destructive/10"
-            icon={PlusCircle}
+            iconClassName="bg-destructive/10 text-destructive"
+            icon={AlertTriangle}
+            actionButtonProps={{
+              asChild: true,
+              children: (
+                <Link href={`/reservations`}>{tErrorPage('tryAgain')}</Link>
+              ),
+              size: 'lg',
+            }}
           />
         </div>
       </div>

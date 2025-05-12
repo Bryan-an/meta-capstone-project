@@ -68,11 +68,11 @@ export function EmptyState({
       {/* Icon */}
       <div
         className={cn(
-          'mb-4 flex size-20 items-center justify-center rounded-full bg-gray-200 dark:bg-gray-700',
+          'mb-4 flex size-20 items-center justify-center rounded-full bg-gray-200 text-gray-500 dark:bg-gray-700 dark:text-gray-400',
           iconClassName,
         )}
       >
-        <Icon className="size-10 text-gray-500 dark:text-gray-400" />
+        <Icon className="size-10" />
       </div>
 
       {/* Title */}
