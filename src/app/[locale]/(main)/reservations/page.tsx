@@ -4,18 +4,9 @@ import { redirect } from 'next/navigation';
 import { getUserReservations } from '@/lib/data/reservations';
 import { Link } from '@/i18n/routing';
 import { Button } from '@/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { EmptyState } from '@/components/ui/empty-state';
 import { PlusCircle, AlertTriangle } from 'lucide-react';
-import { getSimpleLocalizedValue } from '@/lib/utils/localization';
+import { ReservationCard } from '@/components/cards/reservation-card';
 
 /**
  * Renders the page displaying the current user's reservations.
@@ -84,9 +75,10 @@ export default async function ReservationsPage({
           <h1 className="text-3xl font-bold tracking-tight lg:text-4xl">
             {t('title')}
           </h1>
+
           <Button asChild>
             <Link href={`/reservations/new`}>
-              <PlusCircle className="mr-2 h-4 w-4" />
+              <PlusCircle className="h-4 w-4" />
               {t('newReservationButton')}
             </Link>
           </Button>
@@ -95,110 +87,13 @@ export default async function ReservationsPage({
         {reservations && reservations.length > 0 ? (
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {reservations.map((reservation) => (
-              <Card key={reservation.id} className="flex flex-col">
-                <CardHeader>
-                  <CardTitle>
-                    {t('reservationOn', {
-                      date: new Date(
-                        reservation.reservation_date,
-                      ).toLocaleDateString(locale, {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
-                      }),
-                    })}
-                  </CardTitle>
-                  <CardDescription>
-                    {t('atTime', {
-                      time: reservation.reservation_time
-                        ? reservation.reservation_time.substring(0, 5)
-                        : 'N/A',
-                    })}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="flex-grow space-y-3">
-                  <p className="flex items-center">
-                    <strong className="mr-2 min-w-[100px]">
-                      {t('partySizeLabel')}:
-                    </strong>
-                    {reservation.party_size}
-                  </p>
-                  <p className="flex items-center">
-                    <strong className="mr-2 min-w-[100px]">
-                      {t('statusLabel')}:
-                    </strong>
-                    <Badge
-                      variant={
-                        reservation.status === 'confirmed'
-                          ? 'default'
-                          : reservation.status === 'pending'
-                            ? 'secondary'
-                            : reservation.status === 'cancelled'
-                              ? 'destructive'
-                              : reservation.status === 'completed'
-                                ? 'outline'
-                                : 'secondary'
-                      }
-                    >
-                      {tStatus(reservation.status) || reservation.status}
-                    </Badge>
-                  </p>
-                  {reservation.restaurant_tables?.table_number && (
-                    <p className="flex items-start">
-                      <strong className="mr-2 min-w-[100px]">
-                        {t('tableLabel')}:
-                      </strong>
-                      <span>
-                        {reservation.restaurant_tables.table_number}
-                        {getSimpleLocalizedValue(
-                          reservation.restaurant_tables.description_i18n,
-                          locale,
-                        ) && (
-                          <span className="text-muted-foreground ml-1 text-xs">
-                            (
-                            {getSimpleLocalizedValue(
-                              reservation.restaurant_tables.description_i18n,
-                              locale,
-                            )}
-                            )
-                          </span>
-                        )}
-                      </span>
-                    </p>
-                  )}
-                  {getSimpleLocalizedValue(
-                    reservation.customer_notes_i18n,
-                    locale,
-                  ) && (
-                    <p className="flex items-start">
-                      <strong className="mr-2 min-w-[100px]">
-                        {t('notesLabel')}:
-                      </strong>
-                      <span className="text-sm">
-                        {getSimpleLocalizedValue(
-                          reservation.customer_notes_i18n,
-                          locale,
-                        )}
-                      </span>
-                    </p>
-                  )}
-                </CardContent>
-                <CardFooter className="mt-auto">
-                  <p className="text-muted-foreground text-xs">
-                    {t('bookedOn', {
-                      date: new Date(reservation.created_at).toLocaleDateString(
-                        locale,
-                        {
-                          year: 'numeric',
-                          month: 'short',
-                          day: 'numeric',
-                        },
-                      ),
-                    })}
-                  </p>
-                  {/* TODO: Add Edit/Cancel buttons if applicable and status allows */}
-                </CardFooter>
-              </Card>
+              <ReservationCard
+                key={reservation.id}
+                reservation={reservation}
+                locale={locale}
+                t={t}
+                tStatus={tStatus}
+              />
             ))}
           </div>
         ) : (
