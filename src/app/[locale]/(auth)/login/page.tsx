@@ -97,7 +97,7 @@ export default function LoginPage(): React.ReactElement {
   };
 
   const formActionWithNext = (payload: FormData) => {
-    payload.append('next', searchParams.get('next') || '/');
+    payload.append('next', searchParams.get('next') || `/${currentLocale}`);
     formAction(payload);
   };
 
