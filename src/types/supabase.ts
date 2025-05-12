@@ -65,6 +65,86 @@ export type Database = {
           },
         ];
       };
+      reservations: {
+        Row: {
+          created_at: string;
+          customer_notes_i18n: Json | null;
+          id: number;
+          internal_notes_i18n: Json | null;
+          party_size: number;
+          reservation_date: string;
+          reservation_time: string;
+          status: string;
+          table_id: number | null;
+          updated_at: string;
+          user_id: string;
+        };
+        Insert: {
+          created_at?: string;
+          customer_notes_i18n?: Json | null;
+          id?: number;
+          internal_notes_i18n?: Json | null;
+          party_size: number;
+          reservation_date: string;
+          reservation_time: string;
+          status?: string;
+          table_id?: number | null;
+          updated_at?: string;
+          user_id: string;
+        };
+        Update: {
+          created_at?: string;
+          customer_notes_i18n?: Json | null;
+          id?: number;
+          internal_notes_i18n?: Json | null;
+          party_size?: number;
+          reservation_date?: string;
+          reservation_time?: string;
+          status?: string;
+          table_id?: number | null;
+          updated_at?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'reservations_table_id_fkey';
+            columns: ['table_id'];
+            isOneToOne: false;
+            referencedRelation: 'restaurant_tables';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      restaurant_tables: {
+        Row: {
+          capacity: number;
+          created_at: string;
+          description_i18n: Json | null;
+          id: number;
+          is_reservable: boolean;
+          table_number: string;
+          updated_at: string;
+        };
+        Insert: {
+          capacity: number;
+          created_at?: string;
+          description_i18n?: Json | null;
+          id?: number;
+          is_reservable?: boolean;
+          table_number: string;
+          updated_at?: string;
+        };
+        Update: {
+          capacity?: number;
+          created_at?: string;
+          description_i18n?: Json | null;
+          id?: number;
+          is_reservable?: boolean;
+          table_number?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
       specials: {
         Row: {
           created_at: string;
