@@ -3,7 +3,7 @@
 import { useActionState } from 'react';
 import { useFormStatus } from 'react-dom';
 import { useTranslations, useLocale } from 'next-intl';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
@@ -45,6 +45,7 @@ export default function LoginPage(): React.ReactElement {
   const tCommon = useTranslations('Common');
   const router = useRouter();
   const currentLocale = useLocale();
+  const searchParams = useSearchParams();
   const [showPassword, setShowPassword] = useState(false);
   const [googleError, setGoogleError] = useState<string | null>(null);
 
@@ -72,7 +73,7 @@ export default function LoginPage(): React.ReactElement {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/auth/callback?locale=${currentLocale}`,
+          redirectTo: `${window.location.origin}/auth/callback?locale=${currentLocale}&next=${searchParams.get('next')}`,
         },
       });
 
@@ -95,6 +96,11 @@ export default function LoginPage(): React.ReactElement {
     }
   };
 
+  const formActionWithNext = (payload: FormData) => {
+    payload.append('next', searchParams.get('next') || '/');
+    formAction(payload);
+  };
+
   return (
     <Card className="w-full max-w-sm">
       <CardHeader>
@@ -102,7 +108,7 @@ export default function LoginPage(): React.ReactElement {
         <CardDescription>{t('description')}</CardDescription>
       </CardHeader>
 
-      <form action={formAction}>
+      <form action={formActionWithNext}>
         <CardContent className="grid gap-4">
           <div className="grid gap-2">
             <Label htmlFor="email">{t('emailLabel')}</Label>

@@ -138,6 +138,8 @@ export async function signInWithEmailPassword(
   const validatedFields = SignInSchema.safeParse(rawFormData);
   const validationErrorState = processZodErrors(validatedFields, t);
 
+  const next = (formData.get('next') as string) || '/';
+
   if (validationErrorState) {
     return validationErrorState;
   }
@@ -160,7 +162,7 @@ export async function signInWithEmailPassword(
   }
 
   revalidatePath('/', 'layout'); // Revalidate all data associated with the layout
-  redirect('/'); // Redirect to the homepage or a dashboard after successful login
+  redirect(next); // Redirect to the homepage or a dashboard after successful login
 }
 
 /**
