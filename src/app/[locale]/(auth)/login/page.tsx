@@ -73,7 +73,7 @@ export default function LoginPage(): React.ReactElement {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/auth/callback?locale=${currentLocale}&next=${searchParams.get('next')}`,
+          redirectTo: `${window.location.origin}/auth/callback?locale=${currentLocale}&next=${searchParams.get('next') || '/'}`,
         },
       });
 
