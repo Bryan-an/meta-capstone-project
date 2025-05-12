@@ -32,7 +32,7 @@ export const pathnames = {
   '/': '/',
   '/about': {
     en: '/about',
-    es: '/nosotros',
+    es: '/acerca-de',
   },
   '/menu': {
     en: '/menu',
@@ -54,14 +54,18 @@ export const pathnames = {
     en: '/signup',
     es: '/registrarse',
   },
-
-  // If locales use different paths, you can
-  // specify each external path per locale.
-  // Example (Commented out as not needed for current structure):
-  // '/about': {
-  //   en: '/about',
-  //   es: '/nosotros'
-  // }
+  '/auth/callback': {
+    en: '/auth/callback',
+    es: '/auth/callback',
+  },
+  '/auth/error': {
+    en: '/auth/error',
+    es: '/auth/error',
+  },
+  '/account': {
+    en: '/account',
+    es: '/cuenta',
+  },
 };
 
 /**

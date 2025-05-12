@@ -10,6 +10,7 @@
     "reservations": "Reservations",
     "orderOnline": "Order Online",
     "login": "Login",
+    "account": "My Account",
     "logoAlt": "Little Lemon Logo",
     "homepageLinkAriaLabel": "Go to Little Lemon homepage",
     "mobileNavTitle": "Navigation Menu",
@@ -108,7 +109,8 @@
     "NetworkError": "A network error occurred. Please check your connection and try again.",
     "PasswordTooShort": "Password must be at least 6 characters long.",
     "EmailConfirmationSent": "Confirmation email sent. Please check your inbox to verify your account.",
-    "emailConfirmationMessage": "Account created! Please check your email to confirm your account."
+    "emailConfirmationMessage": "Account created! Please check your email to confirm your account.",
+    "signOutButtonText": "Logout"
   },
   "AuthErrorPage": {
     "title": "Authentication Error",
