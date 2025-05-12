@@ -24,6 +24,7 @@ import { Link, pathnames } from '@/i18n/routing';
 import { useTranslations, useLocale } from 'next-intl';
 import { type User } from '@supabase/supabase-js';
 import { signOut } from '@/app/auth/actions';
+import { LanguageChanger } from '@/components/ui/language-changer';
 
 /**
  * Define the type for navigation items
@@ -160,6 +161,9 @@ export function Navbar({ user }: NavbarProps) {
           <NavigationMenuList>
             {navItems.map((item) => createNavLink(item, false))}
             {createLogoutButton(false)}
+            <NavigationMenuItem>
+              <LanguageChanger />
+            </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
 
@@ -210,6 +214,12 @@ export function Navbar({ user }: NavbarProps) {
                 {navItems.map((item) => createNavLink(item, true))}
                 {createLogoutButton(true)}
               </nav>
+
+              <Separator className="mt-auto" />
+
+              <div className="flex justify-center px-4 pb-4">
+                <LanguageChanger />
+              </div>
             </SheetContent>
           </Sheet>
         </div>

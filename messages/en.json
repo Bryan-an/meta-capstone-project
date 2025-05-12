@@ -68,7 +68,10 @@
   },
   "LocaleSwitcher": {
     "label": "Change language",
-    "locale": "{locale, select, en {English} es {Spanish} other {Unknown}}"
+    "locale": "{locale, select, en {English} es {Spanish} other {Unknown}}",
+    "changeLanguageLabel": "Change language",
+    "english": "English",
+    "spanish": "Spanish"
   },
   "NotFoundPage": {
     "title": "Page Not Found",
