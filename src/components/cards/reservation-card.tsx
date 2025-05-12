@@ -10,6 +10,8 @@ import { Badge } from '@/components/ui/badge';
 import { getSimpleLocalizedValue } from '@/lib/utils/localization';
 import type { ReservationWithTableDetails } from '@/lib/data/reservations';
 import type { useTranslations } from 'next-intl';
+import { Button } from '@/components/ui/button';
+import { Pencil, XCircle } from 'lucide-react';
 
 /** Type for valid reservation status values, matching DB constraints and i18n keys. */
 export type ReservationStatusValue =
@@ -59,6 +61,9 @@ export function ReservationCard({
     completed: 'outline',
     'no-show': 'secondary',
   };
+
+  const canEditOrCancel =
+    reservation.status === 'pending' || reservation.status === 'confirmed';
 
   return (
     <Card key={reservation.id} className="flex flex-col">
@@ -140,7 +145,7 @@ export function ReservationCard({
         )}
       </CardContent>
 
-      <CardFooter className="mt-auto">
+      <CardFooter className="mt-auto flex items-center justify-between gap-2">
         <p className="text-muted-foreground text-xs">
           {t('bookedOn', {
             date: new Date(reservation.created_at).toLocaleDateString(locale, {
@@ -150,7 +155,20 @@ export function ReservationCard({
             }),
           })}
         </p>
-        {/* TODO: Add Edit/Cancel buttons if applicable and status allows */}
+
+        {canEditOrCancel && (
+          <div className="flex gap-2">
+            <Button variant="outline" size="sm">
+              <Pencil className="h-4 w-4" />
+              {t('editButton')}
+            </Button>
+
+            <Button variant="destructive" size="sm">
+              <XCircle className="h-4 w-4" />
+              {t('cancelButton')}
+            </Button>
+          </div>
+        )}
       </CardFooter>
     </Card>
   );

@@ -168,7 +168,9 @@
     "statusLabel": "Estado",
     "tableLabel": "Mesa",
     "notesLabel": "Tus Notas",
-    "bookedOn": "Reservado el {date}"
+    "bookedOn": "Reservado el {date}",
+    "editButton": "Editar",
+    "cancelButton": "Cancelar"
   },
   "ReservationStatus": {
     "pending": "Pendiente",

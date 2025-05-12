@@ -85,7 +85,7 @@ export default async function ReservationsPage({
         </div>
 
         {reservations && reservations.length > 0 ? (
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {reservations.map((reservation) => (
               <ReservationCard
                 key={reservation.id}
