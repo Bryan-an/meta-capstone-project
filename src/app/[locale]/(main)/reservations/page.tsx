@@ -71,7 +71,7 @@ export default async function ReservationsPage({
   return (
     <div className="px-4 py-16 md:px-8 lg:px-16">
       <div className="container mx-auto max-w-6xl">
-        <div className="mb-8 flex items-center justify-between">
+        <div className="mb-8 flex flex-col items-center justify-between gap-4 md:flex-row">
           <h1 className="text-3xl font-bold tracking-tight lg:text-4xl">
             {t('title')}
           </h1>

@@ -63,7 +63,7 @@ export function ReservationCard({
   return (
     <Card key={reservation.id} className="flex flex-col">
       <CardHeader>
-        <CardTitle>
+        <CardTitle className="leading-5">
           {t('reservationOn', {
             date: new Date(reservation.reservation_date).toLocaleDateString(
               locale,
