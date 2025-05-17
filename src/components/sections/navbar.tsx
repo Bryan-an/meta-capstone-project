@@ -20,11 +20,12 @@ import {
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Menu, LogOut } from 'lucide-react';
-import { Link, pathnames } from '@/i18n/routing';
+import { Link, pathnames, usePathname } from '@/i18n/routing';
 import { useTranslations, useLocale } from 'next-intl';
 import { type User } from '@supabase/supabase-js';
 import { signOut } from '@/app/auth/actions';
 import { LanguageChanger } from '@/components/ui/language-changer';
+import { cn } from '@/lib/utils';
 
 /**
  * Define the type for navigation items
@@ -60,6 +61,7 @@ export function Navbar({ user }: NavbarProps) {
   const t = useTranslations('Navigation');
   const tAuth = useTranslations('AuthActions');
   const currentLocale = useLocale();
+  const currentPathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleSignOut = async () => {
@@ -81,6 +83,7 @@ export function Navbar({ user }: NavbarProps) {
     if ((item.auth && !user) || (item.noAuth && user)) {
       return null;
     }
+    const isActive = currentPathname === item.href;
 
     return (
       <NavigationMenuItem key={item.href} className="list-none">
@@ -88,14 +91,25 @@ export function Navbar({ user }: NavbarProps) {
           <SheetClose asChild>
             <Link
               href={item.href}
-              className="text-foreground hover:bg-accent hover:text-accent-foreground focus:ring-ring rounded-md px-3 py-2 text-base font-medium transition-colors focus:ring-2 focus:ring-offset-2 focus:outline-none"
+              className={cn(
+                'text-foreground hover:bg-accent hover:text-accent-foreground focus:ring-ring rounded-md px-3 py-2 text-base font-medium transition-colors focus:ring-2 focus:ring-offset-2 focus:outline-none',
+                isActive &&
+                  'bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground',
+              )}
               onClick={() => setIsMobileMenuOpen(false)}
             >
               {item.label}
             </Link>
           </SheetClose>
         ) : (
-          <Link href={item.href} className={navigationMenuTriggerStyle()}>
+          <Link
+            href={item.href}
+            className={cn(
+              navigationMenuTriggerStyle(),
+              isActive &&
+                'bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground',
+            )}
+          >
             {item.label}
           </Link>
         )}
