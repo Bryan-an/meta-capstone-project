@@ -3,6 +3,7 @@
 import { useActionState, useEffect, useId, useState } from 'react';
 import { useFormStatus } from 'react-dom';
 import { useTranslations } from 'next-intl';
+import { useRouter } from '@/i18n/routing';
 import { createReservation } from '@/app/reservations/actions';
 import type { FormState, ReservationActionErrorKeys } from '@/types/actions';
 import { Label } from '@/components/ui/label';
@@ -56,6 +57,7 @@ function SubmitButton() {
 export default function NewReservationPage() {
   const t = useTranslations('ReservationForm');
   const tCommon = useTranslations('Common');
+  const router = useRouter();
   const [state, formAction] = useActionState(createReservation, initialState);
   const baseId = useId();
   const [availableTables, setAvailableTables] = useState<ReservableTable[]>([]);
@@ -95,11 +97,12 @@ export default function NewReservationPage() {
     if (state?.type === 'success') {
       toast.success(state.message || t('success.reservationCreated'));
       setSelectedPartySize(null);
+      router.push('/reservations');
     } else if (state?.type === 'error') {
       const errorMessage = state.message || tCommon('genericError');
       toast.error(errorMessage);
     }
-  }, [state, t, tCommon]);
+  }, [state, t, tCommon, router]);
 
   const getFieldError = (fieldName: string): string | undefined => {
     if (
