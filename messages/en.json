@@ -190,6 +190,7 @@
     "title": "Make a Reservation",
     "description": "Fill in the details below to book your table.",
     "dateLabel": "Date",
+    "datePlaceholder": "Select a date",
     "timeLabel": "Time",
     "timePlaceholder": "Select a time",
     "partySizeLabel": "Party Size",
@@ -218,8 +219,14 @@
     },
     "tableLabel": "Select a Table (Optional)",
     "tablePlaceholder": "Choose a table",
+    "tableUnassignOption": "None (Restaurant will assign)",
+    "tableCurrentlySelectedNotSuitable": "Current table (Not suitable for party size)",
     "tableNoTablesAvailable": "No tables available for the selected criteria or at all.",
     "selectPartySizeToFilterTables": "Select party size to see suitable tables."
+  },
+  "NewReservationPage": {
+    "title": "New Reservation",
+    "description": "Book your table by filling out the form below."
   },
   "AccountPage": {
     "title": "My Account",

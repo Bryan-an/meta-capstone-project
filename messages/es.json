@@ -190,6 +190,7 @@
     "title": "Hacer una Reserva",
     "description": "Completa los detalles a continuación para reservar tu mesa.",
     "dateLabel": "Fecha",
+    "datePlaceholder": "Selecciona una fecha",
     "timeLabel": "Hora",
     "timePlaceholder": "Selecciona una hora",
     "partySizeLabel": "Número de Personas",
@@ -218,8 +219,14 @@
     },
     "tableLabel": "Seleccionar una Mesa (Opcional)",
     "tablePlaceholder": "Elige una mesa",
+    "tableUnassignOption": "Ninguna (Restaurante asignará)",
+    "tableCurrentlySelectedNotSuitable": "Mesa actual (No adecuada para el tamaño del grupo)",
     "tableNoTablesAvailable": "No hay mesas disponibles para los criterios seleccionados o en absoluto.",
     "selectPartySizeToFilterTables": "Seleccione el tamaño del grupo para ver las mesas adecuadas."
+  },
+  "NewReservationPage": {
+    "title": "Nueva Reserva",
+    "description": "Reserva tu mesa completando el siguiente formulario."
   },
   "AccountPage": {
     "title": "Mi Cuenta",

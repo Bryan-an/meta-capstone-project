@@ -2,6 +2,14 @@
 
 import { useTranslations } from 'next-intl';
 import { useParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { useActionState } from 'react';
+import {
+  getReservationForEditAction,
+  updateReservationAction,
+} from '@/app/reservations/actions';
+import type { ReservationWithTableDetails } from '@/lib/data/reservations';
+import type { FormState, ReservationActionErrorKeys } from '@/types/actions';
 import {
   Card,
   CardContent,
@@ -10,342 +18,14 @@ import {
   CardDescription,
 } from '@/components/ui/card';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import {
-  AlertTriangle,
-  CalendarIcon,
-  ClockIcon,
-  CheckCircle2Icon,
-} from 'lucide-react';
-import { useEffect, useState, useId } from 'react';
-import { useActionState } from 'react'; // React 19+
-import { useFormStatus } from 'react-dom';
-import {
-  getReservationForEditAction,
-  updateReservationAction,
-} from '@/app/reservations/actions';
-import type { ReservationWithTableDetails } from '@/lib/data/reservations';
-import type { FormState, ReservationActionErrorKeys } from '@/types/actions';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
-import { getSimpleLocalizedValue } from '@/lib/utils/localization';
-import type { ReservableTable } from '@/lib/data/tables';
+import { AlertTriangle } from 'lucide-react';
 import { getReservableTables } from '@/lib/data/tables';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
-import { Calendar } from '@/components/ui/calendar';
-import { cn } from '@/lib/utils';
-import { format } from 'date-fns';
-import { toast } from 'sonner'; // Import Sonner toast
+import type { ReservableTable } from '@/lib/data/tables';
+import { toast } from 'sonner';
 import { useRouter } from '@/i18n/routing';
+import { ReservationForm } from '@/components/forms/reservation-form';
 
 const initialFormState: FormState<ReservationActionErrorKeys> = null;
-
-/**
- * Props for the EditReservationForm component.
- */
-interface EditReservationFormProps {
-  /** The reservation details to pre-fill the form with. */
-  reservation: ReservationWithTableDetails;
-  /** The server action to call when the form is submitted. */
-  formAction: (payload: FormData) => void;
-  /** The current state of the form, including validation errors or success messages. */
-  formState: FormState<ReservationActionErrorKeys>;
-  /** The current locale, used for localizing elements like table descriptions. */
-  locale: string;
-  /** An array of all tables that can be selected for the reservation. */
-  reservableTables: ReservableTable[];
-  /** An error message string if fetching the list of reservable tables failed, otherwise null. */
-  allTablesError: string | null;
-}
-
-/**
- * A client component that renders the form for editing an existing reservation.
- *
- * It handles displaying form fields pre-filled with existing reservation data,
- * manages selection of reservable tables, and displays validation errors or success messages
- * returned from the server action.
- *
- * @param props - The props for the EditReservationForm component.
- * @returns A React element representing the reservation editing form.
- */
-function EditReservationForm({
-  reservation,
-  formAction,
-  formState,
-  locale,
-  reservableTables,
-  allTablesError,
-}: EditReservationFormProps) {
-  const tForm = useTranslations('ReservationForm');
-  const tCommon = useTranslations('Common');
-  const tEdit = useTranslations('EditReservationPage');
-  const baseId = useId();
-
-  const [selectedDate, setSelectedDate] = useState<Date | undefined>(
-    new Date(reservation.reservation_date + 'T00:00:00Z'),
-  );
-
-  const [currentPartySize, setCurrentPartySize] = useState<number>(
-    reservation.party_size,
-  );
-
-  const suitableTables = reservableTables.filter(
-    (table) => table.capacity >= currentPartySize,
-  );
-
-  return (
-    <form action={formAction} className="space-y-6">
-      <input type="hidden" name="reservationId" value={reservation.id} />
-
-      {/* Date Field */}
-      <div className="space-y-2">
-        <Label htmlFor={`${baseId}-date`}>{tForm('dateLabel')}</Label>
-
-        <Popover>
-          <PopoverTrigger asChild>
-            <Button
-              variant={'outline'}
-              className={cn(
-                'w-full justify-start text-left font-normal',
-                !selectedDate && 'text-muted-foreground',
-              )}
-              id={`${baseId}-date`}
-            >
-              <CalendarIcon className="h-4 w-4" />
-
-              {selectedDate ? (
-                format(selectedDate, 'PPP')
-              ) : (
-                <span>{tForm('dateLabel')}</span>
-              )}
-            </Button>
-          </PopoverTrigger>
-
-          <PopoverContent className="w-auto p-0">
-            <Calendar
-              mode="single"
-              selected={selectedDate}
-              onSelect={(date) => {
-                setSelectedDate(date);
-              }}
-            />
-          </PopoverContent>
-        </Popover>
-
-        <input
-          type="hidden"
-          name="reservation_date"
-          value={selectedDate ? format(selectedDate, 'yyyy-MM-dd') : ''}
-        />
-
-        {formState?.fieldErrors?.reservation_date && (
-          <p className="text-destructive text-sm">
-            {formState.fieldErrors.reservation_date.join(', ')}
-          </p>
-        )}
-      </div>
-
-      {/* Time Field */}
-      <div className="space-y-2">
-        <Label htmlFor={`${baseId}-time`}>{tForm('timeLabel')}</Label>
-
-        <Input
-          id={`${baseId}-time`}
-          name="reservation_time"
-          type="time"
-          defaultValue={reservation.reservation_time}
-          required
-          aria-describedby={
-            formState?.fieldErrors?.reservation_time
-              ? `${baseId}-time-error`
-              : undefined
-          }
-        />
-
-        {formState?.fieldErrors?.reservation_time && (
-          <p id={`${baseId}-time-error`} className="text-destructive text-sm">
-            {formState.fieldErrors.reservation_time.join(', ')}
-          </p>
-        )}
-      </div>
-
-      {/* Party Size Field */}
-      <div className="space-y-2">
-        <Label htmlFor={`${baseId}-party_size`}>
-          {tForm('partySizeLabel')}
-        </Label>
-
-        <Input
-          id={`${baseId}-party_size`}
-          name="party_size"
-          type="number"
-          defaultValue={reservation.party_size}
-          required
-          min="1"
-          max="20"
-          aria-describedby={
-            formState?.fieldErrors?.party_size
-              ? `${baseId}-party_size-error`
-              : undefined
-          }
-          onChange={(e) => setCurrentPartySize(Number(e.target.value))}
-        />
-
-        {formState?.fieldErrors?.party_size && (
-          <p
-            id={`${baseId}-party_size-error`}
-            className="text-destructive text-sm"
-          >
-            {formState.fieldErrors.party_size.join(', ')}
-          </p>
-        )}
-      </div>
-
-      {/* Table Selection Field */}
-      <div className="space-y-2">
-        <Label htmlFor={`${baseId}-table_id`}>{tForm('tableLabel')}</Label>
-
-        {allTablesError && (
-          <Alert variant="destructive" className="mt-2">
-            <AlertTriangle className="h-4 w-4" />
-            <AlertTitle>{tCommon('errorTitle')}</AlertTitle>
-            <AlertDescription>{allTablesError}</AlertDescription>
-          </Alert>
-        )}
-
-        {!allTablesError && reservableTables.length === 0 && (
-          <p className="text-muted-foreground text-sm">
-            {tForm('tableNoTablesAvailable')}
-          </p>
-        )}
-
-        {!allTablesError && reservableTables.length > 0 && (
-          <>
-            <Select
-              name="table_id"
-              defaultValue={reservation.table_id?.toString() || 'unassign'}
-            >
-              <SelectTrigger id={`${baseId}-table_id`}>
-                <SelectValue placeholder={tForm('tablePlaceholder')} />
-              </SelectTrigger>
-
-              <SelectContent>
-                <SelectItem value="unassign">
-                  {tForm('tablePlaceholder')} (None)
-                </SelectItem>
-
-                {suitableTables.map((table) => (
-                  <SelectItem key={table.id} value={table.id.toString()}>
-                    {table.table_number} (Cap: {table.capacity}
-                    {getSimpleLocalizedValue(table.description_i18n, locale)
-                      ? `, ${getSimpleLocalizedValue(table.description_i18n, locale)}`
-                      : ''}
-                    )
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-
-            {currentPartySize > 0 &&
-              suitableTables.length === 0 &&
-              reservableTables.length > 0 && (
-                <p className="mt-1 text-sm text-amber-600">
-                  {tForm('errors.tableUnavailableForGuests', {
-                    count: currentPartySize,
-                  })}
-                </p>
-              )}
-          </>
-        )}
-
-        {formState?.fieldErrors?.table_id && (
-          <p className="text-destructive text-sm">
-            {formState.fieldErrors.table_id.join(', ')}
-          </p>
-        )}
-      </div>
-
-      {/* Customer Notes Field */}
-      <div className="space-y-2">
-        <Label htmlFor={`${baseId}-customer_notes`}>
-          {tForm('notesLabel')}
-        </Label>
-
-        <Textarea
-          id={`${baseId}-customer_notes`}
-          name="customer_notes"
-          placeholder={tForm('notesPlaceholder')}
-          defaultValue={
-            getSimpleLocalizedValue(reservation.customer_notes_i18n, locale) ||
-            ''
-          }
-          aria-describedby={
-            formState?.fieldErrors?.customer_notes
-              ? `${baseId}-customer_notes-error`
-              : undefined
-          }
-          className="field-sizing-content min-h-fit resize-none"
-        />
-
-        {formState?.fieldErrors?.customer_notes && (
-          <p
-            id={`${baseId}-customer_notes-error`}
-            className="text-destructive text-sm"
-          >
-            {formState.fieldErrors.customer_notes.join(', ')}
-          </p>
-        )}
-      </div>
-
-      {formState?.type === 'error' && !formState.fieldErrors && (
-        <Alert variant="destructive">
-          <AlertTriangle className="h-4 w-4" />
-          <AlertTitle>{tCommon('errorTitle')}</AlertTitle>
-          <AlertDescription>{formState.message}</AlertDescription>
-        </Alert>
-      )}
-
-      {formState?.type === 'success' && (
-        <Alert variant="default">
-          <CheckCircle2Icon className="h-4 w-4" />
-          <AlertTitle>{tCommon('successTitle')}</AlertTitle>
-          <AlertDescription>{formState.message}</AlertDescription>
-        </Alert>
-      )}
-
-      <SubmitButton text={tEdit('updateButtonText')} />
-    </form>
-  );
-}
-
-/**
- * A submit button component that shows a pending state using `useFormStatus`.
- *
- * @param props - The props for the SubmitButton.
- * @returns A React element representing the submit button.
- */
-function SubmitButton({ text }: { text: string }) {
-  const { pending } = useFormStatus();
-
-  return (
-    <Button type="submit" disabled={pending} className="w-full">
-      {pending ? <ClockIcon className="h-4 w-4 animate-spin" /> : null}
-      {text}
-    </Button>
-  );
-}
 
 /**
  * The main page component for editing an existing reservation.
@@ -354,13 +34,14 @@ function SubmitButton({ text }: { text: string }) {
  * It also fetches a list of all reservable tables for the form.
  * It uses `useActionState` to manage the form submission process with the `updateReservationAction` server action.
  * The component handles loading states, error display (e.g., if the reservation is not found or fetching fails),
- * and renders the `EditReservationForm` with the necessary data and action handlers.
+ * and renders the `ReservationForm` with the necessary data and action handlers.
  *
  * @returns A React element representing the edit reservation page.
  */
 export default function EditReservationPage() {
-  const t = useTranslations('EditReservationPage');
+  const tPage = useTranslations('EditReservationPage');
   const tCommon = useTranslations('Common');
+  const tForm = useTranslations('ReservationForm');
   const params = useParams();
   const locale = params.locale as string;
   const reservationId = params.id as string;
@@ -371,16 +52,16 @@ export default function EditReservationPage() {
   const [reservation, setReservation] =
     useState<ReservationWithTableDetails | null>(null);
 
-  const [formState, formAction] = useActionState(
-    updateReservationAction,
-    initialFormState,
-  );
-
   const [reservableTables, setReservableTables] = useState<ReservableTable[]>(
     [],
   );
 
   const [allTablesError, setAllTablesError] = useState<string | null>(null);
+
+  const [formActionState, formAction] = useActionState(
+    updateReservationAction,
+    initialFormState,
+  );
 
   useEffect(() => {
     if (!reservationId) {
@@ -395,10 +76,11 @@ export default function EditReservationPage() {
 
       try {
         const result = await getReservationForEditAction(reservationId);
+
         if (result.success && result.data) {
           setReservation(result.data);
         } else {
-          setError(result.message || t('errors.notFound'));
+          setError(result.message || tPage('errors.notFound'));
           setReservation(null);
         }
       } catch {
@@ -410,7 +92,7 @@ export default function EditReservationPage() {
     }
 
     fetchReservation();
-  }, [reservationId, t, tCommon]);
+  }, [reservationId, tPage, tCommon]);
 
   useEffect(() => {
     async function fetchAllTables() {
@@ -423,9 +105,11 @@ export default function EditReservationPage() {
         } else {
           setReservableTables([]);
 
-          setAllTablesError(
-            result.messageKey ? tCommon(result.messageKey) : result.message,
-          );
+          const errorMessage = result.messageKey
+            ? tCommon(`errors.${result.messageKey}`)
+            : result.message || tCommon('genericError');
+
+          setAllTablesError(errorMessage);
         }
       } catch {
         setReservableTables([]);
@@ -437,18 +121,31 @@ export default function EditReservationPage() {
   }, [tCommon]);
 
   useEffect(() => {
-    if (formState?.type === 'success' && formState.message) {
-      toast.success(formState.message);
+    if (formActionState?.type === 'success') {
+      toast.success(
+        formActionState.messageKey
+          ? tForm(`success.${formActionState.messageKey}`)
+          : formActionState.message || tPage('success.reservationUpdated'),
+      );
+
       router.push('/reservations');
-    } else if (formState?.type === 'error' && formState.message) {
-      toast.error(formState.message);
+    } else if (formActionState?.type === 'error' && formActionState.message) {
+      if (!formActionState.fieldErrors) {
+        toast.error(
+          formActionState.messageKey
+            ? tCommon(`errors.${formActionState.messageKey as string}`)
+            : formActionState.message || tCommon('genericError'),
+        );
+      }
     }
-  }, [formState, router]);
+  }, [formActionState, router, tPage, tCommon, tForm]);
 
   if (isLoading) {
     return (
       <div className="px-4 py-16 md:px-8 lg:px-16">
-        <p>{tCommon('loading')}...</p>
+        <div className="container mx-auto max-w-6xl">
+          <p>{tCommon('loading')}...</p>
+        </div>
       </div>
     );
   }
@@ -456,11 +153,13 @@ export default function EditReservationPage() {
   if (error) {
     return (
       <div className="px-4 py-16 md:px-8 lg:px-16">
-        <Alert variant="destructive">
-          <AlertTriangle className="h-4 w-4" />
-          <AlertTitle>{tCommon('errorTitle')}</AlertTitle>
-          <AlertDescription>{error}</AlertDescription>
-        </Alert>
+        <div className="container mx-auto max-w-6xl">
+          <Alert variant="destructive">
+            <AlertTriangle className="h-4 w-4" />
+            <AlertTitle>{tCommon('errorTitle')}</AlertTitle>
+            <AlertDescription>{error}</AlertDescription>
+          </Alert>
+        </div>
       </div>
     );
   }
@@ -468,11 +167,13 @@ export default function EditReservationPage() {
   if (!reservation) {
     return (
       <div className="px-4 py-16 md:px-8 lg:px-16">
-        <Alert variant="destructive">
-          <AlertTriangle className="h-4 w-4" />
-          <AlertTitle>{tCommon('errorTitle')}</AlertTitle>
-          <AlertDescription>{t('errors.notFound')}</AlertDescription>
-        </Alert>
+        <div className="container mx-auto max-w-6xl">
+          <Alert variant="destructive">
+            <AlertTriangle className="h-4 w-4" />
+            <AlertTitle>{tCommon('errorTitle')}</AlertTitle>
+            <AlertDescription>{tPage('errors.notFound')}</AlertDescription>
+          </Alert>
+        </div>
       </div>
     );
   }
@@ -482,20 +183,20 @@ export default function EditReservationPage() {
       <Card className="mx-auto max-w-xl">
         <CardHeader className="text-center">
           <CardTitle className="text-3xl font-bold tracking-tight">
-            {t('title')}
+            {tPage('title')}
           </CardTitle>
-
-          <CardDescription>{t('description')}</CardDescription>
+          <CardDescription>{tPage('description')}</CardDescription>
         </CardHeader>
-
         <CardContent>
-          <EditReservationForm
-            reservation={reservation}
+          <ReservationForm
             formAction={formAction}
-            formState={formState}
+            formState={formActionState}
+            initialData={reservation} // Pass the fetched reservation as initialData
             locale={locale}
             reservableTables={reservableTables}
             allTablesError={allTablesError}
+            submitButtonText={tPage('updateButtonText')} // Use specific update button text
+            reservationId={reservation.id.toString()} // Pass reservationId for the hidden input
           />
         </CardContent>
       </Card>
