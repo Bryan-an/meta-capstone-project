@@ -80,6 +80,8 @@ export type ReservationActionErrorKeys =
   | 'partySizeTooLarge'
   | 'userNotAuthenticated'
   | 'databaseError'
-  | 'tableUnavailableForGuests' // If trying to book a table not suitable for party size
-  | 'noTablesAvailable' // If no tables are available at all for the given time/date
-  | 'slotUnavailable'; // Generic slot unavailable message
+  | 'table_id_invalid'
+  | 'tableUnavailableForGuests'
+  | 'noTablesAvailable'
+  | 'partySizeExceedsTableCapacity'
+  | 'slotUnavailable';

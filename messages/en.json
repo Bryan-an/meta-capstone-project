@@ -94,7 +94,9 @@
     "requiredField": "This field is required.",
     "formNotFilled": "Please complete all parts of the form.",
     "validationError": "Please correct the errors outlined below.",
-    "unknownValidationError": "An unexpected issue occurred during validation. Please try again."
+    "unknownValidationError": "An unexpected issue occurred during validation. Please try again.",
+    "table": "Table",
+    "capacity": "Capacity"
   },
   "AuthActions": {
     "requiredFields": "Email and password are required.",
@@ -198,15 +200,34 @@
       "reservationCreated": "Your reservation has been successfully created!"
     },
     "errors": {
-      "userNotAuthenticated": "You must be logged in to make a reservation.",
-      "reservationTimeNotInFuture": "Reservations must be for a future date and time.",
-      "databaseError": "Could not save reservation due to a database error. Please try again.",
-      "unknownError": "An unexpected error occurred. Please try again.",
-      "requiredField": "This field is required.",
-      "reservationTimeInvalid": "Please enter a valid time format (e.g., 14:30).",
+      "reservationDateInPast": "Reservation date cannot be in the past.",
+      "reservationTimeInvalid": "Please enter a valid time in HH:MM format.",
+      "reservationTimeNotInFuture": "Reservation date and time must be in the future.",
       "partySizeInvalid": "Party size must be at least 1.",
-      "partySizeTooLarge": "Party size cannot exceed 20 guests for online bookings.",
-      "reservationCannotBeInPast": "Reservations must be for a future date and time."
-    }
+      "partySizeTooLarge": "Party size cannot exceed 20 guests for online booking.",
+      "userNotAuthenticated": "You must be logged in to make a reservation.",
+      "databaseError": "Could not save reservation due to a database error. Please try again.",
+      "unknownError": "An unexpected error occurred. Please try again later.",
+      "table_id_invalid": "The selected table is not valid. Please choose another table.",
+      "noTablesAvailable": "No tables are currently available for selection.",
+      "tableCapacityExceeded": "The selected table cannot accommodate the specified number of guests.",
+      "tableUnavailableForGuests": "No tables available for a party of {count}. Please try a different party size or contact us.",
+      "partySizeExceedsTableCapacity": "Party size is too large for the selected table."
+    },
+    "tableLabel": "Select a Table (Optional)",
+    "tablePlaceholder": "Choose a table",
+    "tableNoTablesAvailable": "No tables available for the selected criteria or at all.",
+    "selectPartySizeToFilterTables": "Select party size to see suitable tables."
+  },
+  "AccountPage": {
+    "title": "My Account",
+    "description": "View and manage your account details and reservations.",
+    "updatePasswordTitle": "Update Password",
+    "updatePasswordDescription": "Enter your new password below.",
+    "newPasswordLabel": "New Password",
+    "confirmNewPasswordLabel": "Confirm New Password",
+    "updatePasswordButton": "Update Password",
+    "updatePasswordSuccess": "Password updated successfully.",
+    "updatePasswordError": "Failed to update password. Please try again."
   }
 }
