@@ -185,18 +185,20 @@ export default function EditReservationPage() {
           <CardTitle className="text-3xl font-bold tracking-tight">
             {tPage('title')}
           </CardTitle>
+
           <CardDescription>{tPage('description')}</CardDescription>
         </CardHeader>
+
         <CardContent>
           <ReservationForm
             formAction={formAction}
             formState={formActionState}
-            initialData={reservation} // Pass the fetched reservation as initialData
+            initialData={reservation}
             locale={locale}
             reservableTables={reservableTables}
             allTablesError={allTablesError}
-            submitButtonText={tPage('updateButtonText')} // Use specific update button text
-            reservationId={reservation.id.toString()} // Pass reservationId for the hidden input
+            submitButtonText={tPage('updateButtonText')}
+            reservationId={reservation.id.toString()}
           />
         </CardContent>
       </Card>
