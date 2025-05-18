@@ -70,14 +70,14 @@ export function ReservationCard({
       <CardHeader>
         <CardTitle className="leading-5">
           {t('reservationOn', {
-            date: new Date(reservation.reservation_date).toLocaleDateString(
-              locale,
-              {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-              },
-            ),
+            date: new Date(
+              reservation.reservation_date + 'T00:00:00Z',
+            ).toLocaleDateString(locale, {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+              timeZone: 'UTC',
+            }),
           })}
         </CardTitle>
 

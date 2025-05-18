@@ -173,13 +173,22 @@ export async function createReservation(
     }
   }
 
-  const reservationDateTime = new Date(
-    `${reservation_date}T${reservation_time}:00`,
+  const [year, month, day] = reservation_date.split('-').map(Number);
+  const [hours, minutes] = reservation_time.split(':').map(Number);
+
+  const reservationTimestampUTC = Date.UTC(
+    year,
+    month - 1,
+    day,
+    hours,
+    minutes,
+    0,
+    0,
   );
 
-  const now = new Date();
+  const currentTimestampUTC = Date.now();
 
-  if (reservationDateTime <= now) {
+  if (reservationTimestampUTC <= currentTimestampUTC) {
     return {
       type: 'error',
       messageKey: 'reservationTimeNotInFuture',
