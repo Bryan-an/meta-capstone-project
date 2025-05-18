@@ -83,7 +83,11 @@ export function Navbar({ user }: NavbarProps) {
       return null;
     }
 
-    const isActive = currentPathname === item.href;
+    let isActive = currentPathname === item.href;
+
+    if (item.href !== '/') {
+      isActive = currentPathname.startsWith(item.href);
+    }
 
     return (
       <NavigationMenuItem key={item.href} className="list-none">
@@ -91,6 +95,7 @@ export function Navbar({ user }: NavbarProps) {
           <SheetClose asChild>
             <Link
               href={item.href}
+              aria-current={isActive ? 'page' : undefined}
               className={cn(
                 'text-foreground hover:bg-accent hover:text-accent-foreground focus:ring-ring rounded-md px-3 py-2 text-base font-medium transition-colors focus:ring-2 focus:ring-offset-2 focus:outline-none',
                 isActive &&
@@ -104,6 +109,7 @@ export function Navbar({ user }: NavbarProps) {
         ) : (
           <Link
             href={item.href}
+            aria-current={isActive ? 'page' : undefined}
             className={cn(
               navigationMenuTriggerStyle(),
               isActive &&
