@@ -131,7 +131,7 @@
   },
   "LoginPage": {
     "title": "Iniciar Sesión",
-    "description": "Ingresa tu correo electrónico abajo para iniciar sesión en tu cuenta.",
+    "description": "Ingresa tus credenciales abajo para iniciar sesión en tu cuenta.",
     "emailLabel": "Correo Electrónico",
     "emailPlaceholder": "m@ejemplo.com",
     "passwordLabel": "Contraseña",
