@@ -207,7 +207,12 @@ export function ReservationForm({
               <CalendarIcon className="h-4 w-4" />
 
               {selectedDate ? (
-                format(selectedDate, 'PPP')
+                selectedDate.toLocaleDateString(locale, {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                  timeZone: 'UTC',
+                })
               ) : (
                 <span>{tForm('datePlaceholder')}</span>
               )}
