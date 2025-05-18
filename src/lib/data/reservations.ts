@@ -19,7 +19,7 @@ export type RestaurantTableFromSupabase =
 export interface ReservationWithTableDetails extends ReservationFromSupabase {
   restaurant_tables?: Pick<
     RestaurantTableFromSupabase,
-    'table_number' | 'description_i18n'
+    'table_number' | 'description_i18n' | 'capacity'
   > | null;
 }
 
@@ -60,4 +60,54 @@ export async function getUserReservations(
   }
 
   return data as ReservationWithTableDetails[] | null;
+}
+
+/**
+ * Fetches a specific reservation by its ID for a given user, including details of the assigned table.
+ *
+ * @param reservationId - The ID of the reservation to fetch.
+ * @param userId - The ID of the user who owns the reservation.
+ * @returns A promise that resolves to the reservation with table details, or null if not found, an error occurs, or no user/reservation ID is provided.
+ */
+export async function fetchReservationByIdForUser(
+  reservationId: string,
+  userId: string,
+): Promise<ReservationWithTableDetails | null> {
+  if (!reservationId || !userId) {
+    return null;
+  }
+
+  const supabase = await createClient();
+
+  const { data, error } = await supabase
+    .from('reservations')
+    .select(
+      `
+      id,
+      user_id,
+      reservation_date,
+      reservation_time,
+      party_size,
+      status,
+      customer_notes_i18n,
+      internal_notes_i18n,
+      table_id,
+      created_at,
+      updated_at,
+      restaurant_tables (
+        table_number,
+        description_i18n,
+        capacity
+      )
+    `,
+    )
+    .eq('id', reservationId)
+    .eq('user_id', userId)
+    .single();
+
+  if (error) {
+    return null;
+  }
+
+  return data as unknown as ReservationWithTableDetails | null;
 }

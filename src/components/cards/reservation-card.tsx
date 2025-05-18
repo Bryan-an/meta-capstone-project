@@ -12,6 +12,7 @@ import type { ReservationWithTableDetails } from '@/lib/data/reservations';
 import type { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { Pencil, XCircle } from 'lucide-react';
+import { Link } from '@/i18n/routing';
 
 /** Type for valid reservation status values, matching DB constraints and i18n keys. */
 export type ReservationStatusValue =
@@ -158,9 +159,16 @@ export function ReservationCard({
 
         {canEditOrCancel && (
           <div className="flex gap-2">
-            <Button variant="outline" size="sm">
-              <Pencil className="h-4 w-4" />
-              {t('editButton')}
+            <Button variant="outline" size="sm" asChild>
+              <Link
+                href={{
+                  pathname: '/reservations/[id]/edit',
+                  params: { id: reservation.id },
+                }}
+              >
+                <Pencil className="h-4 w-4" />
+                {t('editButton')}
+              </Link>
             </Button>
 
             <Button variant="destructive" size="sm">

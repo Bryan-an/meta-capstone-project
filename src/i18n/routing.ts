@@ -70,6 +70,10 @@ export const pathnames = {
     en: '/reservations/new',
     es: '/reservaciones/nueva',
   },
+  '/reservations/[id]/edit': {
+    en: '/reservations/[id]/edit',
+    es: '/reservaciones/[id]/editar',
+  },
 };
 
 /**

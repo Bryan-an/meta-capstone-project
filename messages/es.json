@@ -96,7 +96,8 @@
     "validationError": "Por favor, corrija los errores indicados a continuación.",
     "unknownValidationError": "Ocurrió un problema inesperado durante la validación. Por favor, inténtelo de nuevo.",
     "table": "Mesa",
-    "capacity": "Capacidad"
+    "capacity": "Capacidad",
+    "featureComingSoon": "¡Funcionalidad próximamente!"
   },
   "AuthActions": {
     "requiredFields": "Se requieren correo electrónico y contraseña.",
@@ -230,5 +231,18 @@
     "updatePasswordButton": "Actualizar Contraseña",
     "updatePasswordSuccess": "Contraseña actualizada correctamente.",
     "updatePasswordError": "Error al actualizar la contraseña. Por favor, inténtalo de nuevo."
+  },
+  "EditReservationPage": {
+    "title": "Editar Reserva",
+    "description": "Modifica los detalles de tu reserva a continuación.",
+    "editingReservation": "Editando Reserva",
+    "updateButtonText": "Actualizar Reserva",
+    "success": {
+      "reservationUpdated": "¡Tu reserva ha sido actualizada exitosamente!"
+    },
+    "errors": {
+      "notFound": "Reserva no encontrada o no tienes permiso para editarla.",
+      "updateFailed": "No se pudo actualizar la reserva. Por favor, inténtalo de nuevo."
+    }
   }
 }

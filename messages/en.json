@@ -96,7 +96,8 @@
     "validationError": "Please correct the errors outlined below.",
     "unknownValidationError": "An unexpected issue occurred during validation. Please try again.",
     "table": "Table",
-    "capacity": "Capacity"
+    "capacity": "Capacity",
+    "featureComingSoon": "Feature coming soon!"
   },
   "AuthActions": {
     "requiredFields": "Email and password are required.",
@@ -230,5 +231,18 @@
     "updatePasswordButton": "Update Password",
     "updatePasswordSuccess": "Password updated successfully.",
     "updatePasswordError": "Failed to update password. Please try again."
+  },
+  "EditReservationPage": {
+    "title": "Edit Reservation",
+    "description": "Modify your booking details below.",
+    "editingReservation": "Editing Reservation",
+    "updateButtonText": "Update Reservation",
+    "success": {
+      "reservationUpdated": "Your reservation has been successfully updated!"
+    },
+    "errors": {
+      "notFound": "Reservation not found or you do not have permission to edit it.",
+      "updateFailed": "Failed to update reservation. Please try again."
+    }
   }
 }
