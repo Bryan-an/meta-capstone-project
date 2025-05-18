@@ -3,7 +3,7 @@
 import { useId, useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { useFormStatus } from 'react-dom';
-import { format } from 'date-fns';
+import { format, parse, isBefore, startOfToday } from 'date-fns';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -87,11 +87,13 @@ export function ReservationForm({
   const tCommon = useTranslations('Common');
   const baseId = useId();
 
-  const [selectedDate, setSelectedDate] = useState<Date | undefined>(
-    initialData.reservation_date
-      ? new Date(initialData.reservation_date + 'T00:00:00Z')
-      : undefined,
-  );
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(() => {
+    if (initialData.reservation_date) {
+      return parse(initialData.reservation_date, 'yyyy-MM-dd', new Date());
+    }
+
+    return undefined;
+  });
 
   const [currentPartySize, setCurrentPartySize] = useState<number>(
     initialData.party_size || 0,
@@ -211,7 +213,6 @@ export function ReservationForm({
                   year: 'numeric',
                   month: 'long',
                   day: 'numeric',
-                  timeZone: 'UTC',
                 })
               ) : (
                 <span>{tForm('datePlaceholder')}</span>
@@ -225,9 +226,7 @@ export function ReservationForm({
               selected={selectedDate}
               onSelect={setSelectedDate}
               autoFocus
-              disabled={(date) =>
-                date < new Date(new Date().setHours(0, 0, 0, 0))
-              }
+              disabled={(date) => isBefore(date, startOfToday())}
             />
           </PopoverContent>
         </Popover>
