@@ -29,11 +29,6 @@ export default async function ReservationsPage({
   const tErrorPage = await getTranslations({ locale, namespace: 'ErrorPage' });
   const supabase = await createClient();
 
-  const tStatus = await getTranslations({
-    locale,
-    namespace: 'ReservationStatus',
-  });
-
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -91,8 +86,6 @@ export default async function ReservationsPage({
                 key={reservation.id}
                 reservation={reservation}
                 locale={locale}
-                t={t}
-                tStatus={tStatus}
               />
             ))}
           </div>

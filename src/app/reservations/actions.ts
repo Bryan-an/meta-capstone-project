@@ -5,12 +5,13 @@ import { createClient } from '@/lib/supabase/server';
 import { processZodErrors } from '@/lib/utils/validation';
 import type { FormState, ReservationActionErrorKeys } from '@/types/actions';
 import type { TablesInsert } from '@/types/supabase';
-import { revalidatePath } from 'next/cache';
+import { revalidatePath, revalidateTag } from 'next/cache';
 import { getTranslations, getLocale } from 'next-intl/server';
 import {
   fetchReservationByIdForUser,
   type ReservationWithTableDetails,
 } from '@/lib/data/reservations';
+import { parse } from 'date-fns';
 
 const TIME_REGEX = /^([01]?[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$/; // HH:MM or HH:MM:SS format
 
@@ -603,6 +604,114 @@ export async function updateReservationAction(
       message:
         tReservationFormErrors('unknownError') +
         (errorMessage ? `: ${errorMessage}` : ''),
+    };
+  }
+}
+
+/**
+ * Server action to cancel a reservation.
+ *
+ * Validates the input data, checks user authentication, ensures the reservation exists and belongs to the user,
+ * and updates the reservation status to 'cancelled' in the Supabase database.
+ *
+ * @param prevState - The previous form state.
+ * @param formData - The form data submitted by the user.
+ * @returns A {@link FormState} object indicating success or failure.
+ */
+export async function cancelReservationAction(
+  prevState: FormState | null,
+  formData: FormData,
+): Promise<FormState> {
+  const locale = await getLocale();
+  const tReservationsPage = await getTranslations('ReservationsPage');
+  const reservationId = formData.get('reservationId');
+
+  const tReservationFormErrors = await getTranslations(
+    'ReservationForm.errors',
+  );
+
+  if (!reservationId || typeof reservationId !== 'string') {
+    return {
+      type: 'error',
+      message: tReservationsPage('cancelErrorInvalidInput'),
+    };
+  }
+
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return {
+      type: 'error',
+      message: tReservationsPage('cancelErrorUnauthorized'),
+    };
+  }
+
+  try {
+    const { data: existingReservation, error: fetchError } = await supabase
+      .from('reservations')
+      .select('id, user_id, status, reservation_date')
+      .eq('id', reservationId)
+      .eq('user_id', user.id)
+      .single();
+
+    if (fetchError || !existingReservation) {
+      return {
+        type: 'error',
+        message: tReservationsPage('cancelErrorNotFound'),
+      };
+    }
+
+    if (existingReservation.status === 'cancelled') {
+      return {
+        type: 'error',
+        message: tReservationsPage('cancelErrorAlreadyCancelled'),
+      };
+    }
+
+    const today = new Date();
+    today.setUTCHours(0, 0, 0, 0);
+
+    const reservationDate = parse(
+      existingReservation.reservation_date,
+      'yyyy-MM-dd',
+      new Date(),
+    );
+
+    if (reservationDate < today) {
+      return {
+        type: 'error',
+        message: tReservationsPage('cancelErrorCannotCancelPast'),
+      };
+    }
+
+    const { error: updateError } = await supabase
+      .from('reservations')
+      .update({ status: 'cancelled' })
+      .eq('id', reservationId);
+
+    if (updateError) {
+      return {
+        type: 'error',
+        message: tReservationFormErrors('databaseError'),
+      };
+    }
+
+    revalidatePath(`/${locale}/reservations`);
+    revalidateTag('user-reservations');
+    revalidateTag(`reservation-${reservationId}`);
+
+    return {
+      type: 'success',
+      message: tReservationsPage('cancelSuccess'),
+    };
+  } catch {
+    return {
+      type: 'error',
+      message: tReservationFormErrors('unknownError'),
     };
   }
 }

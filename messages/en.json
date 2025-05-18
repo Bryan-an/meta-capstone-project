@@ -177,7 +177,20 @@
     "notesLabel": "Your Notes",
     "bookedOn": "Booked on {date}",
     "editButton": "Edit",
-    "cancelButton": "Cancel"
+    "cancelButton": "Cancel",
+    "cancelSuccess": "Reservation successfully cancelled.",
+    "cancelErrorInvalidInput": "Invalid input for cancellation.",
+    "cancelErrorUnauthorized": "You are not authorized to cancel this reservation.",
+    "cancelErrorNotFound": "Reservation not found.",
+    "cancelErrorAlreadyCancelled": "This reservation is already cancelled.",
+    "cancelErrorCannotCancelPast": "Past reservations cannot be cancelled.",
+    "cancellingButtonLabel": "Cancelling...",
+    "cancelDialog": {
+      "title": "Confirm Cancellation",
+      "description": "Are you sure you want to cancel this reservation? This action cannot be undone.",
+      "cancelButtonText": "Keep Reservation",
+      "confirmButtonText": "Yes, Cancel Reservation"
+    }
   },
   "ReservationStatus": {
     "pending": "Pending",

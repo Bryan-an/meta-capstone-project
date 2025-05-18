@@ -177,7 +177,20 @@
     "notesLabel": "Tus Notas",
     "bookedOn": "Reservado el {date}",
     "editButton": "Editar",
-    "cancelButton": "Cancelar"
+    "cancelButton": "Cancelar",
+    "cancelSuccess": "Reserva cancelada exitosamente.",
+    "cancelErrorInvalidInput": "Entrada no válida para la cancelación.",
+    "cancelErrorUnauthorized": "No estás autorizado para cancelar esta reserva.",
+    "cancelErrorNotFound": "Reserva no encontrada.",
+    "cancelErrorAlreadyCancelled": "Esta reserva ya está cancelada.",
+    "cancelErrorCannotCancelPast": "Las reservas pasadas no se pueden cancelar.",
+    "cancellingButtonLabel": "Cancelando...",
+    "cancelDialog": {
+      "title": "Confirmar Cancelación",
+      "description": "¿Estás seguro de que quieres cancelar esta reserva? Esta acción no se puede deshacer.",
+      "cancelButtonText": "Mantener Reserva",
+      "confirmButtonText": "Sí, Cancelar Reserva"
+    }
   },
   "ReservationStatus": {
     "pending": "Pendiente",
