@@ -215,7 +215,9 @@
       "tableCapacityExceeded": "La mesa seleccionada no puede acomodar el número de comensales especificado.",
       "tableUnavailableForGuests": "No hay mesas disponibles para un grupo de {count}. Por favor, intente con un tamaño de grupo diferente o contáctenos.",
       "partySizeExceedsTableCapacity": "El tamaño del grupo es demasiado grande para la mesa seleccionada.",
-      "tableAlreadyBookedAtTime": "Esta mesa ya está reservada para la fecha y hora seleccionadas. Por favor, elija una mesa o hora diferente."
+      "tableAlreadyBookedAtTime": "Esta mesa ya está reservada para la fecha y hora seleccionadas. Por favor, elija una mesa o hora diferente.",
+      "validationError": "Por favor, corrija los errores indicados a continuación.",
+      "unknownValidationError": "Ocurrió un error de validación inesperado. Por favor, revisa tu entrada e inténtalo de nuevo."
     },
     "tableLabel": "Seleccionar una Mesa (Opcional)",
     "tablePlaceholder": "Elige una mesa",

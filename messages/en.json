@@ -215,7 +215,9 @@
       "tableCapacityExceeded": "The selected table cannot accommodate the specified number of guests.",
       "tableUnavailableForGuests": "No tables available for a party of {count}. Please try a different party size or contact us.",
       "partySizeExceedsTableCapacity": "Party size is too large for the selected table.",
-      "tableAlreadyBookedAtTime": "This table is already booked for the selected date and time. Please choose a different table or time."
+      "tableAlreadyBookedAtTime": "This table is already booked for the selected date and time. Please choose a different table or time.",
+      "validationError": "Please correct the errors outlined below.",
+      "unknownValidationError": "An unexpected validation error occurred. Please check your input and try again."
     },
     "tableLabel": "Select a Table (Optional)",
     "tablePlaceholder": "Choose a table",

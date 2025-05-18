@@ -12,7 +12,7 @@ import {
   type ReservationWithTableDetails,
 } from '@/lib/data/reservations';
 
-const TIME_REGEX = /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/; // HH:MM format
+const TIME_REGEX = /^([01]?[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$/; // HH:MM or HH:MM:SS format
 
 /**
  * Base schema for validating new reservation data.
@@ -373,8 +373,11 @@ export async function updateReservationAction(
 ): Promise<FormState<ReservationActionErrorKeys>> {
   const supabase = await createClient();
   const currentLocale = await getLocale();
-  const tReservationForm = await getTranslations('ReservationForm');
   const tEditReservationPage = await getTranslations('EditReservationPage');
+
+  const tReservationFormErrors = await getTranslations(
+    'ReservationForm.errors',
+  );
 
   const {
     data: { user },
@@ -384,7 +387,7 @@ export async function updateReservationAction(
     return {
       type: 'error',
       messageKey: 'userNotAuthenticated',
-      message: tReservationForm('errors.userNotAuthenticated'),
+      message: tReservationFormErrors('userNotAuthenticated'),
     };
   }
 
@@ -401,7 +404,7 @@ export async function updateReservationAction(
     await UpdateReservationSchema.safeParseAsync(rawFormData);
 
   if (!validationResult.success) {
-    return processZodErrors(validationResult, tReservationForm);
+    return processZodErrors(validationResult, tReservationFormErrors);
   }
 
   const {
@@ -459,13 +462,13 @@ export async function updateReservationAction(
     return {
       type: 'error',
       messageKey: 'reservationTimeNotInFuture',
-      message: tReservationForm('errors.reservationTimeNotInFuture'),
+      message: tReservationFormErrors('reservationTimeNotInFuture'),
       fieldErrors: {
         reservation_date: [
-          tReservationForm('errors.reservationTimeNotInFuture'),
+          tReservationFormErrors('reservationTimeNotInFuture'),
         ],
         reservation_time: [
-          tReservationForm('errors.reservationTimeNotInFuture'),
+          tReservationFormErrors('reservationTimeNotInFuture'),
         ],
       },
     };
@@ -480,9 +483,9 @@ export async function updateReservationAction(
       return {
         type: 'error',
         messageKey: 'table_id_invalid',
-        message: tReservationForm('errors.table_id_invalid'),
+        message: tReservationFormErrors('table_id_invalid'),
         fieldErrors: {
-          table_id: [tReservationForm('errors.table_id_invalid')],
+          table_id: [tReservationFormErrors('table_id_invalid')],
         },
       };
     }
@@ -497,9 +500,9 @@ export async function updateReservationAction(
       return {
         type: 'error',
         messageKey: 'table_id_invalid',
-        message: tReservationForm('errors.table_id_invalid'),
+        message: tReservationFormErrors('table_id_invalid'),
         fieldErrors: {
-          table_id: [tReservationForm('errors.table_id_invalid')],
+          table_id: [tReservationFormErrors('table_id_invalid')],
         },
       };
     }
@@ -508,11 +511,9 @@ export async function updateReservationAction(
       return {
         type: 'error',
         messageKey: 'partySizeExceedsTableCapacity',
-        message: tReservationForm('errors.partySizeExceedsTableCapacity'),
+        message: tReservationFormErrors('partySizeExceedsTableCapacity'),
         fieldErrors: {
-          party_size: [
-            tReservationForm('errors.partySizeExceedsTableCapacity'),
-          ],
+          party_size: [tReservationFormErrors('partySizeExceedsTableCapacity')],
         },
       };
     }
@@ -533,7 +534,7 @@ export async function updateReservationAction(
         type: 'error',
         messageKey: 'databaseError',
         message:
-          conflictError.message || tReservationForm('errors.databaseError'),
+          conflictError.message || tReservationFormErrors('databaseError'),
       };
     }
 
@@ -541,14 +542,14 @@ export async function updateReservationAction(
       return {
         type: 'error',
         messageKey: 'tableAlreadyBookedAtTime',
-        message: tReservationForm('errors.tableAlreadyBookedAtTime'),
+        message: tReservationFormErrors('tableAlreadyBookedAtTime'),
         fieldErrors: {
-          table_id: [tReservationForm('errors.tableAlreadyBookedAtTime')],
+          table_id: [tReservationFormErrors('tableAlreadyBookedAtTime')],
           reservation_date: [
-            tReservationForm('errors.tableAlreadyBookedAtTime'),
+            tReservationFormErrors('tableAlreadyBookedAtTime'),
           ],
           reservation_time: [
-            tReservationForm('errors.tableAlreadyBookedAtTime'),
+            tReservationFormErrors('tableAlreadyBookedAtTime'),
           ],
         },
       };
@@ -582,8 +583,7 @@ export async function updateReservationAction(
       return {
         type: 'error',
         messageKey: 'databaseError',
-        message:
-          updateError.message || tReservationForm('errors.databaseError'),
+        message: updateError.message || tReservationFormErrors('databaseError'),
       };
     }
 
@@ -601,7 +601,7 @@ export async function updateReservationAction(
       type: 'error',
       messageKey: 'unknownError',
       message:
-        tReservationForm('errors.unknownError') +
+        tReservationFormErrors('unknownError') +
         (errorMessage ? `: ${errorMessage}` : ''),
     };
   }
