@@ -1,6 +1,6 @@
 import { createServerClient, type CookieOptions } from '@supabase/ssr';
 import { type NextRequest, NextResponse } from 'next/server';
-import { defaultLocale, locales } from '@/i18n/routing'; // Import locale config
+import { defaultLocale, locales } from '@/i18n/routing';
 
 /**
  * Define paths that require authentication.
