@@ -84,4 +84,5 @@ export type ReservationActionErrorKeys =
   | 'tableUnavailableForGuests'
   | 'noTablesAvailable'
   | 'partySizeExceedsTableCapacity'
+  | 'tableAlreadyBookedAtTime'
   | 'slotUnavailable';

@@ -135,6 +135,44 @@ export async function createReservation(
     table_id,
   } = validationResult.data;
 
+  if (table_id) {
+    const parsedTableId = parseInt(table_id, 10);
+
+    if (!isNaN(parsedTableId)) {
+      const { data: existingReservation, error: existingReservationError } =
+        await supabase
+          .from('reservations')
+          .select('id')
+          .eq('table_id', parsedTableId)
+          .eq('reservation_date', reservation_date)
+          .eq('reservation_time', reservation_time)
+          .in('status', ['pending', 'confirmed'])
+          .maybeSingle();
+
+      if (existingReservationError) {
+        return {
+          type: 'error',
+          messageKey: 'databaseError',
+          message:
+            existingReservationError.message || t('errors.databaseError'),
+        };
+      }
+
+      if (existingReservation) {
+        return {
+          type: 'error',
+          messageKey: 'tableAlreadyBookedAtTime',
+          message: t('errors.tableAlreadyBookedAtTime'),
+          fieldErrors: {
+            table_id: [t('errors.tableAlreadyBookedAtTime')],
+            reservation_date: [t('errors.tableAlreadyBookedAtTime')],
+            reservation_time: [t('errors.tableAlreadyBookedAtTime')],
+          },
+        };
+      }
+    }
+  }
+
   const reservationDateTime = new Date(
     `${reservation_date}T${reservation_time}:00`,
   );
