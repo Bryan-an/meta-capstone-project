@@ -24,6 +24,7 @@ import type { ReservableTable } from '@/lib/data/tables';
 import { toast } from 'sonner';
 import { useRouter } from '@/i18n/routing';
 import { ReservationForm } from '@/components/forms/reservation-form';
+import EditReservationLoading from './loading';
 
 const initialFormState: FormState<ReservationActionErrorKeys> = null;
 
@@ -141,13 +142,7 @@ export default function EditReservationPage() {
   }, [formActionState, router, tPage, tCommon, tForm]);
 
   if (isLoading) {
-    return (
-      <div className="px-4 py-16 md:px-8 lg:px-16">
-        <div className="container mx-auto max-w-6xl">
-          <p>{tCommon('loading')}...</p>
-        </div>
-      </div>
-    );
+    return <EditReservationLoading />;
   }
 
   if (error) {
