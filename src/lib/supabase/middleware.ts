@@ -1,16 +1,72 @@
 import { createServerClient, type CookieOptions } from '@supabase/ssr';
 import { type NextRequest, NextResponse } from 'next/server';
+import { defaultLocale, locales } from '@/i18n/routing'; // Import locale config
 
 /**
- * Updates the user's session by refreshing it if necessary.
+ * Define paths that require authentication.
+ * @remarks
+ * This is used to check if the user is authenticated before accessing the route.
+ * If the user is not authenticated, they are redirected to the login page.
+ * If the user is authenticated, they are allowed to access the route.
+ */
+const protectedPaths = ['/reservations'];
+
+/**
+ * Checks if the given pathname (without locale prefix) is a protected route.
+ *
+ * @param pathname - The pathname to check (e.g., "/reservations/new").
+ * @returns True if the path is protected, false otherwise.
+ */
+function isPathProtected(pathname: string): boolean {
+  return protectedPaths.some((protectedPath) =>
+    pathname.startsWith(protectedPath),
+  );
+}
+
+/**
+ * Extracts the locale from the pathname or defaults to the defaultLocale.
+ * e.g., "/en/dashboard" - "en"
+ * e.g., "/dashboard" - "en" (if defaultLocale is 'en')
+ * @param pathname - The full request pathname.
+ * @returns The determined locale.
+ */
+function getLocaleFromPathname(pathname: string): string {
+  const firstSegment = pathname.split('/')[1];
+
+  if (locales.includes(firstSegment as (typeof locales)[number])) {
+    return firstSegment;
+  }
+
+  return defaultLocale;
+}
+
+/**
+ * Removes the locale prefix from a pathname if it exists.
+ * e.g., "/en/dashboard" - "/dashboard"
+ * e.g., "/dashboard" - "/dashboard"
+ * @param pathname - The full request pathname.
+ * @returns The pathname without the locale prefix.
+ */
+function stripLocaleFromPathname(pathname: string): string {
+  const firstSegment = pathname.split('/')[1];
+
+  if (locales.includes(firstSegment as (typeof locales)[number])) {
+    return pathname.substring(pathname.indexOf('/', 1));
+  }
+
+  return pathname;
+}
+
+/**
+ * Updates the user's session and handles route protection.
  * This function is designed to be called from Next.js middleware.
  *
- * It creates a Supabase client configured for middleware, attempts to refresh
- * the session by calling `supabase.auth.getUser()`, and ensures that cookies
- * are correctly passed between the request and response to maintain session state.
+ * It creates a Supabase client, attempts to refresh the session,
+ * checks if the route is protected, and if so, verifies authentication.
+ * Unauthenticated users accessing protected routes are redirected to the login page.
  *
  * @param request - The incoming NextRequest object.
- * @returns A NextResponse object, potentially with updated session cookies.
+ * @returns A NextResponse object, potentially a redirect or with updated session cookies.
  */
 export async function updateSession(
   request: NextRequest,
@@ -97,7 +153,21 @@ export async function updateSession(
   // to check the validity of the session and refresh it if necessary.
   // The result of `getUser()` is not directly used here; its purpose is to trigger
   // the session refresh mechanism within the Supabase client, which handles cookie updates.
-  await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const requestPathname = request.nextUrl.pathname;
+  const pathWithoutLocale = stripLocaleFromPathname(requestPathname);
+
+  if (isPathProtected(pathWithoutLocale)) {
+    if (!user) {
+      const locale = getLocaleFromPathname(requestPathname);
+      const loginUrl = new URL(`/${locale}/login`, request.url);
+      loginUrl.searchParams.set('next', requestPathname);
+      return NextResponse.redirect(loginUrl);
+    }
+  }
 
   return response;
 }
