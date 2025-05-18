@@ -1,8 +1,8 @@
 'use client';
 
-import { useActionState, useState } from 'react';
+import { useActionState, useState, useId } from 'react';
 import { useFormStatus } from 'react-dom';
-import { useLocale, useTranslations } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -39,7 +39,7 @@ const initialState: FormState = null;
 export default function SignUpPage(): React.ReactElement {
   const t = useTranslations('SignUpPage');
   const tCommon = useTranslations('Common');
-  const currentLocale = useLocale();
+  const baseId = useId();
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -57,12 +57,6 @@ export default function SignUpPage(): React.ReactElement {
     setShowConfirmPassword(!showConfirmPassword);
   };
 
-  // Wrapper for formAction to include locale
-  const formActionWithLocale = (payload: FormData) => {
-    payload.append('locale', currentLocale);
-    formAction(payload);
-  };
-
   return (
     <Card className="w-full max-w-sm">
       <CardHeader>
@@ -70,35 +64,40 @@ export default function SignUpPage(): React.ReactElement {
         <CardDescription>{t('description')}</CardDescription>
       </CardHeader>
 
-      <form action={formActionWithLocale}>
+      <form action={formAction}>
         <CardContent className="grid gap-4">
           <div className="grid gap-2">
-            <Label htmlFor="email">{t('emailLabel')}</Label>
+            <Label htmlFor={`${baseId}-email`}>{t('emailLabel')}</Label>
 
             <Input
-              id="email"
+              id={`${baseId}-email`}
               name="email"
               type="email"
               placeholder={t('emailPlaceholder')}
+              aria-describedby={`${baseId}-email-error`}
               required
             />
 
             {state?.fieldErrors?.email && (
-              <p className="text-destructive text-xs">
+              <p
+                className="text-destructive text-xs"
+                id={`${baseId}-email-error`}
+              >
                 {state.fieldErrors.email.join(', ')}
               </p>
             )}
           </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="password">{t('passwordLabel')}</Label>
+            <Label htmlFor={`${baseId}-password`}>{t('passwordLabel')}</Label>
 
             <div className="relative">
               <Input
-                id="password"
+                id={`${baseId}-password`}
                 name="password"
                 type={showPassword ? 'text' : 'password'}
                 placeholder={t('passwordPlaceholder')}
+                aria-describedby={`${baseId}-password-error`}
                 required
                 className="pr-10"
               />
@@ -122,21 +121,27 @@ export default function SignUpPage(): React.ReactElement {
             </div>
 
             {state?.fieldErrors?.password && (
-              <p className="text-destructive text-xs">
+              <p
+                className="text-destructive text-xs"
+                id={`${baseId}-password-error`}
+              >
                 {state.fieldErrors.password.join(', ')}
               </p>
             )}
           </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="confirmPassword">{t('confirmPasswordLabel')}</Label>
+            <Label htmlFor={`${baseId}-confirmPassword`}>
+              {t('confirmPasswordLabel')}
+            </Label>
 
             <div className="relative">
               <Input
-                id="confirmPassword"
+                id={`${baseId}-confirmPassword`}
                 name="confirmPassword"
                 type={showConfirmPassword ? 'text' : 'password'}
                 placeholder={t('confirmPasswordPlaceholder')}
+                aria-describedby={`${baseId}-confirmPassword-error`}
                 required
                 className="pr-10"
               />
@@ -162,7 +167,10 @@ export default function SignUpPage(): React.ReactElement {
             </div>
 
             {state?.fieldErrors?.confirmPassword && (
-              <p className="text-destructive text-xs">
+              <p
+                className="text-destructive text-xs"
+                id={`${baseId}-confirmPassword-error`}
+              >
                 {state.fieldErrors.confirmPassword.join(', ')}
               </p>
             )}

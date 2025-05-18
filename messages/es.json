@@ -88,9 +88,13 @@
     "errorTitle": "Error",
     "loading": "Cargando...",
     "successTitle": "Éxito",
-    "requiredFields": "Por favor, completa todos los campos obligatorios.",
-    "genericError": "Ocurrió un error inesperado. Por favor, inténtalo más tarde.",
-    "goHome": "Ir a la Página Principal"
+    "requiredFields": "Por favor, complete todos los campos obligatorios.",
+    "genericError": "Ocurrió un error inesperado. Por favor, inténtelo de nuevo más tarde.",
+    "goHome": "Ir a la página principal",
+    "requiredField": "Este campo es obligatorio.",
+    "formNotFilled": "Por favor, complete todas las partes del formulario.",
+    "validationError": "Por favor, corrija los errores indicados a continuación.",
+    "unknownValidationError": "Ocurrió un problema inesperado durante la validación. Por favor, inténtelo de nuevo."
   },
   "AuthActions": {
     "requiredFields": "Se requieren correo electrónico y contraseña.",
@@ -178,5 +182,31 @@
     "cancelled": "Cancelada",
     "completed": "Completada",
     "no-show": "No Presentado"
+  },
+  "ReservationForm": {
+    "title": "Hacer una Reserva",
+    "description": "Completa los detalles a continuación para reservar tu mesa.",
+    "dateLabel": "Fecha",
+    "timeLabel": "Hora",
+    "timePlaceholder": "Selecciona una hora",
+    "partySizeLabel": "Número de Personas",
+    "partySizePlaceholder": "Número de comensales",
+    "notesLabel": "Solicitudes Especiales (Opcional)",
+    "notesPlaceholder": "Ej: restricciones alimentarias, ocasión especial",
+    "submitButtonText": "Reservar Mesa",
+    "success": {
+      "reservationCreated": "¡Tu reserva ha sido creada exitosamente!"
+    },
+    "errors": {
+      "userNotAuthenticated": "Debes iniciar sesión para hacer una reserva.",
+      "reservationTimeNotInFuture": "Las reservas deben ser para una fecha y hora futuras.",
+      "databaseError": "No se pudo guardar la reserva debido a un error en la base de datos. Por favor, inténtalo de nuevo.",
+      "unknownError": "Ocurrió un error inesperado. Por favor, inténtalo de nuevo.",
+      "requiredField": "Este campo es obligatorio.",
+      "reservationTimeInvalid": "Por favor, introduce un formato de hora válido (ej: 14:30).",
+      "partySizeInvalid": "El número de personas debe ser al menos 1.",
+      "partySizeTooLarge": "El número de personas no puede exceder los 20 comensales para reservas en línea.",
+      "reservationCannotBeInPast": "Las reservas deben ser para una fecha y hora futuras."
+    }
   }
 }

@@ -6,6 +6,7 @@ import { ReactNode } from 'react';
 import { notFound } from 'next/navigation';
 import { locales } from '@/i18n/routing';
 import '@/app/globals.css';
+import { Toaster } from '@/components/ui/sonner';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -150,6 +151,8 @@ export default async function RootLayout(props: RootLayoutProps) {
         <NextIntlClientProvider locale={locale} messages={messages}>
           {children}
         </NextIntlClientProvider>
+
+        <Toaster />
       </body>
     </html>
   );

@@ -3,7 +3,7 @@
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, getLocale } from 'next-intl/server';
 import { z } from 'zod';
 import type { FormState, GeneralErrorKeys } from '@/types/actions';
 import { processZodErrors } from '@/lib/utils/validation';
@@ -78,9 +78,7 @@ export async function signUpWithEmailPassword(
   const t = await getTranslations('AuthActions');
   const supabase = await createClient();
   const rawFormData = Object.fromEntries(formData.entries());
-
-  // Extract locale from formData, default to 'en' if not provided
-  const locale = (formData.get('locale') as string) || 'en';
+  const locale = await getLocale();
 
   const validatedFields = SignUpSchema.safeParse(rawFormData);
   const validationErrorState = processZodErrors(validatedFields, t);
@@ -168,11 +166,12 @@ export async function signInWithEmailPassword(
 /**
  * Handles user sign-out.
  * This action will redirect the user to the localized login page.
- * @param locale - The current locale of the user.
  */
-export async function signOut(locale: string): Promise<void> {
+export async function signOut(): Promise<void> {
   const t = await getTranslations('AuthActions');
   const supabase = await createClient();
+  const locale = await getLocale();
+
   const { error } = await supabase.auth.signOut();
 
   if (error) {

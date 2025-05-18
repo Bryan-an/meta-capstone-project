@@ -90,7 +90,11 @@
     "successTitle": "Success",
     "requiredFields": "Please fill in all required fields.",
     "genericError": "An unexpected error occurred. Please try again later.",
-    "goHome": "Go to Homepage"
+    "goHome": "Go to Homepage",
+    "requiredField": "This field is required.",
+    "formNotFilled": "Please complete all parts of the form.",
+    "validationError": "Please correct the errors outlined below.",
+    "unknownValidationError": "An unexpected issue occurred during validation. Please try again."
   },
   "AuthActions": {
     "requiredFields": "Email and password are required.",
@@ -178,5 +182,31 @@
     "cancelled": "Cancelled",
     "completed": "Completed",
     "no-show": "No-Show"
+  },
+  "ReservationForm": {
+    "title": "Make a Reservation",
+    "description": "Fill in the details below to book your table.",
+    "dateLabel": "Date",
+    "timeLabel": "Time",
+    "timePlaceholder": "Select a time",
+    "partySizeLabel": "Party Size",
+    "partySizePlaceholder": "Number of guests",
+    "notesLabel": "Special Requests (Optional)",
+    "notesPlaceholder": "e.g., dietary restrictions, special occasion",
+    "submitButtonText": "Book Reservation",
+    "success": {
+      "reservationCreated": "Your reservation has been successfully created!"
+    },
+    "errors": {
+      "userNotAuthenticated": "You must be logged in to make a reservation.",
+      "reservationTimeNotInFuture": "Reservations must be for a future date and time.",
+      "databaseError": "Could not save reservation due to a database error. Please try again.",
+      "unknownError": "An unexpected error occurred. Please try again.",
+      "requiredField": "This field is required.",
+      "reservationTimeInvalid": "Please enter a valid time format (e.g., 14:30).",
+      "partySizeInvalid": "Party size must be at least 1.",
+      "partySizeTooLarge": "Party size cannot exceed 20 guests for online bookings.",
+      "reservationCannotBeInPast": "Reservations must be for a future date and time."
+    }
   }
 }

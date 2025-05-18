@@ -4,7 +4,7 @@ import { useActionState } from 'react';
 import { useFormStatus } from 'react-dom';
 import { useTranslations, useLocale } from 'next-intl';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useId } from 'react';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -48,6 +48,7 @@ export default function LoginPage(): React.ReactElement {
   const searchParams = useSearchParams();
   const [showPassword, setShowPassword] = useState(false);
   const [googleError, setGoogleError] = useState<string | null>(null);
+  const baseId = useId();
 
   const [state, formAction] = useActionState(
     signInWithEmailPassword,
@@ -111,32 +112,37 @@ export default function LoginPage(): React.ReactElement {
       <form action={formActionWithNext}>
         <CardContent className="grid gap-4">
           <div className="grid gap-2">
-            <Label htmlFor="email">{t('emailLabel')}</Label>
+            <Label htmlFor={`${baseId}-email`}>{t('emailLabel')}</Label>
 
             <Input
-              id="email"
+              id={`${baseId}-email`}
               name="email"
               type="email"
               placeholder={t('emailPlaceholder')}
+              aria-describedby={`${baseId}-email-error`}
               required
             />
 
             {state?.fieldErrors?.email && (
-              <p className="text-destructive text-xs">
+              <p
+                className="text-destructive text-xs"
+                id={`${baseId}-email-error`}
+              >
                 {state.fieldErrors.email.join(', ')}
               </p>
             )}
           </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="password">{t('passwordLabel')}</Label>
+            <Label htmlFor={`${baseId}-password`}>{t('passwordLabel')}</Label>
 
             <div className="relative">
               <Input
-                id="password"
+                id={`${baseId}-password`}
                 name="password"
                 type={showPassword ? 'text' : 'password'}
                 placeholder={t('passwordPlaceholder')}
+                aria-describedby={`${baseId}-password-error`}
                 required
                 className="pr-10"
               />
@@ -160,7 +166,10 @@ export default function LoginPage(): React.ReactElement {
             </div>
 
             {state?.fieldErrors?.password && (
-              <p className="text-destructive text-xs">
+              <p
+                className="text-destructive text-xs"
+                id={`${baseId}-password-error`}
+              >
                 {state.fieldErrors.password.join(', ')}
               </p>
             )}
