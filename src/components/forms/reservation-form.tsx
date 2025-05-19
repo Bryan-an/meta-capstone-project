@@ -28,7 +28,7 @@ import {
   CheckCircle2Icon,
   ClockIcon,
 } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib/utils/cn';
 import { getSimpleLocalizedValue } from '@/lib/utils/localization';
 import type { FormState, ReservationActionErrorKeys } from '@/types/actions';
 import type { ReservableTable } from '@/lib/data/tables';

@@ -25,7 +25,7 @@ import { useTranslations } from 'next-intl';
 import { type User } from '@supabase/supabase-js';
 import { signOut } from '@/app/auth/actions';
 import { LanguageChanger } from '@/components/ui/language-changer';
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib/utils/cn';
 
 /** Props for the Navbar component */
 interface NavbarProps {
