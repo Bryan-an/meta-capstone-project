@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/select';
 import { Globe } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { useParams } from 'next/navigation';
 
 /**
  * A client component that allows the user to change the application language.
@@ -24,11 +25,17 @@ import { useTranslations } from 'next-intl';
 export function LanguageChanger() {
   const router = useRouter();
   const pathname = usePathname();
+  const params = useParams<{ id: string }>();
   const currentLocale = useLocale();
   const t = useTranslations('LocaleSwitcher');
 
   const handleChange = (newLocale: string) => {
-    router.push(pathname, { locale: newLocale });
+    router.push(
+      { pathname, params },
+      {
+        locale: newLocale,
+      },
+    );
   };
 
   return (
