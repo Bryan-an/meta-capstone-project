@@ -20,28 +20,12 @@ import {
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Menu, LogOut } from 'lucide-react';
-import { Link, pathnames, usePathname } from '@/i18n/routing';
+import { Link, usePathname } from '@/i18n/routing';
 import { useTranslations } from 'next-intl';
 import { type User } from '@supabase/supabase-js';
 import { signOut } from '@/app/auth/actions';
 import { LanguageChanger } from '@/components/ui/language-changer';
 import { cn } from '@/lib/utils';
-
-/**
- * Define the type for navigation items
- */
-type NavItemLink = {
-  /** Use the keys from the imported pathnames configuration */
-  href: keyof typeof pathnames;
-  /** We will fetch this using t() */
-  label: string;
-  /** Optional: Only show if user is authenticated */
-  auth?: boolean;
-  /** Optional: Only show if user is NOT authenticated */
-  noAuth?: boolean;
-  /** Optional: Action to perform on click, e.g., logout */
-  action?: () => Promise<void>;
-};
 
 /** Props for the Navbar component */
 interface NavbarProps {
@@ -68,7 +52,7 @@ export function Navbar({ user }: NavbarProps) {
     setIsMobileMenuOpen(false);
   };
 
-  const navItems: NavItemLink[] = [
+  const navItems = [
     { href: '/', label: t('home') },
     { href: '/about', label: t('about') },
     { href: '/menu', label: t('menu') },
@@ -76,10 +60,16 @@ export function Navbar({ user }: NavbarProps) {
     { href: '/order-online', label: t('orderOnline') },
     { href: '/account', label: t('account'), auth: true },
     { href: '/login', label: t('login'), noAuth: true },
-  ];
+  ] as const;
 
-  const createNavLink = (item: NavItemLink, isMobile: boolean = false) => {
-    if ((item.auth && !user) || (item.noAuth && user)) {
+  const createNavLink = (
+    item: (typeof navItems)[number],
+    isMobile: boolean = false,
+  ) => {
+    const itemAuth = 'auth' in item && item.auth;
+    const itemNoAuth = 'noAuth' in item && item.noAuth;
+
+    if ((itemAuth && !user) || (itemNoAuth && user)) {
       return null;
     }
 
