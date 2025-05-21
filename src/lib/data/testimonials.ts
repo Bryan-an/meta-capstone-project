@@ -1,7 +1,9 @@
 import { createClient } from '@/lib/supabase/server';
 import { type Database } from '@/types/supabase';
 
-// Re-export or define necessary types
+/**
+ * Represents a testimonial item from the Supabase database.
+ */
 export type TestimonialItem =
   Database['public']['Tables']['testimonials']['Row'];
 
@@ -22,9 +24,8 @@ export async function getTestimonials(limit = 4): Promise<TestimonialItem[]> {
 
   if (error) {
     console.error('Supabase error fetching testimonials:', error.message);
-    return []; // Return empty array on error
+    return [];
   }
 
-  // Ensure data is treated as an array
   return (Array.isArray(data) ? data : []) as TestimonialItem[];
 }

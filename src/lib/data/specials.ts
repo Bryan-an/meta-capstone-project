@@ -1,8 +1,14 @@
 import { createClient } from '@/lib/supabase/server';
 import { type Database } from '@/types/supabase';
 
-// Re-export or define necessary types if not globally available
+/**
+ * Represents a menu item from the Supabase database.
+ */
 export type MenuItem = Database['public']['Tables']['menu_items']['Row'];
+
+/**
+ * Represents a fetched special from the Supabase database.
+ */
 export type FetchedSpecial = Pick<
   Database['public']['Tables']['specials']['Row'],
   'id' | 'start_date' | 'end_date'
@@ -34,9 +40,8 @@ export async function getSpecials(limit = 3): Promise<FetchedSpecial[]> {
 
   if (error) {
     console.error('Supabase error fetching specials:', error.message);
-    return []; // Return empty array on error
+    return [];
   }
 
-  // Ensure data is treated as an array
   return (Array.isArray(data) ? data : []) as FetchedSpecial[];
 }
