@@ -33,7 +33,6 @@ export async function getUserReservations(
   userId: string | undefined,
 ): Promise<ReservationWithTableDetails[] | null> {
   if (!userId) {
-    console.error('getUserReservations: No user ID provided.');
     return null;
   }
 
@@ -55,7 +54,6 @@ export async function getUserReservations(
     .order('reservation_time', { ascending: false });
 
   if (error) {
-    console.error('Supabase error fetching user reservations:', error.message);
     return null;
   }
 
