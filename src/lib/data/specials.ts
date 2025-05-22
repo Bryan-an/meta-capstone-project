@@ -39,7 +39,6 @@ export async function getSpecials(limit = 3): Promise<FetchedSpecial[]> {
     .limit(limit);
 
   if (error) {
-    console.error('Supabase error fetching specials:', error.message);
     return [];
   }
 
