@@ -23,7 +23,6 @@ export async function getTestimonials(limit = 4): Promise<TestimonialItem[]> {
     .limit(limit);
 
   if (error) {
-    console.error('Supabase error fetching testimonials:', error.message);
     return [];
   }
 
