@@ -37,7 +37,6 @@ export async function createClient() {
             // The `set` method was called from a Server Component.
             // This can be ignored if you have middleware refreshing
             // user sessions.
-            // console.warn('Supabase server client: Failed to set cookie in read-only context', { name });
           }
         },
         /**
@@ -51,7 +50,6 @@ export async function createClient() {
             cookieStore.set({ name, value: '', ...options });
           } catch {
             // Similar to set, ignoring errors in read-only contexts.
-            // console.warn('Supabase server client: Failed to remove cookie in read-only context', { name });
           }
         },
       },
