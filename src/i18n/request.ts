@@ -42,13 +42,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
       locale,
       messages,
     };
-  } catch (error) {
-    // Log error for debugging purposes on the server
-    console.error(
-      `[getRequestConfig] Failed to load messages for locale "${locale}":`, // Added quotes for clarity
-      error,
-    );
-
+  } catch {
     // If messages cannot be loaded for a locale, trigger a 404
     notFound();
   }
