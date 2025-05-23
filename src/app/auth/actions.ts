@@ -168,15 +168,12 @@ export async function signInWithEmailPassword(
  * This action will redirect the user to the localized login page.
  */
 export async function signOut(): Promise<void> {
-  const t = await getTranslations('AuthActions');
   const supabase = await createClient();
   const locale = await getLocale();
 
   const { error } = await supabase.auth.signOut();
 
   if (error) {
-    console.error(t('signOutError', { errorMessage: error.message }));
-
     // Redirect to the localized generic error page
     redirect(
       `/${locale}/auth/error?error=signOutError&message=${encodeURIComponent(
