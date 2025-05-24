@@ -132,11 +132,11 @@ vi.mock('@/components/ui/button', () => ({
     asChild,
     type,
     className,
-    ...props
+    ...restProps
   }: MockButtonProps) => {
     if (asChild) {
       return (
-        <div data-testid="button-wrapper" {...props}>
+        <div data-testid="button-wrapper" className={className} {...restProps}>
           {children}
         </div>
       );
@@ -151,7 +151,7 @@ vi.mock('@/components/ui/button', () => ({
         onClick={onClick}
         disabled={disabled}
         className={className}
-        {...props}
+        {...restProps}
       >
         {children}
       </button>
@@ -167,11 +167,26 @@ vi.mock('@/components/ui/tooltip', () => ({
   Tooltip: ({ children }: MockComponentProps) => (
     <div data-testid="tooltip">{children}</div>
   ),
-  TooltipTrigger: ({ children, className, ...props }: MockComponentProps) => (
-    <div data-testid="tooltip-trigger" className={className} {...props}>
-      {children}
-    </div>
-  ),
+  TooltipTrigger: ({
+    children,
+    className,
+    asChild,
+    ...restProps
+  }: MockComponentProps & { asChild?: boolean }) => {
+    if (asChild) {
+      return (
+        <div data-testid="tooltip-trigger" className={className} {...restProps}>
+          {children}
+        </div>
+      );
+    }
+
+    return (
+      <div data-testid="tooltip-trigger" className={className} {...restProps}>
+        {children}
+      </div>
+    );
+  },
   TooltipContent: ({ children, className, ...props }: MockComponentProps) => (
     <div data-testid="tooltip-content" className={className} {...props}>
       {children}
@@ -230,11 +245,25 @@ vi.mock('@/components/ui/alert-dialog', () => ({
   AlertDialogTitle: ({ children }: MockComponentProps) => (
     <div data-testid="alert-dialog-title">{children}</div>
   ),
-  AlertDialogTrigger: ({ children, ...props }: MockComponentProps) => (
-    <div data-testid="alert-dialog-trigger" {...props}>
-      {children}
-    </div>
-  ),
+  AlertDialogTrigger: ({
+    children,
+    asChild,
+    ...restProps
+  }: MockComponentProps & { asChild?: boolean }) => {
+    if (asChild) {
+      return (
+        <div data-testid="alert-dialog-trigger" {...restProps}>
+          {children}
+        </div>
+      );
+    }
+
+    return (
+      <div data-testid="alert-dialog-trigger" {...restProps}>
+        {children}
+      </div>
+    );
+  },
 }));
 
 vi.mock('@/components/ui/loader-spinner', () => ({
