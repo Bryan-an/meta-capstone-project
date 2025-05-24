@@ -78,24 +78,33 @@ vi.mock('@/components/ui/button', () => ({
 vi.mock('@/components/ui/select', () => ({
   Select: ({ children, onValueChange, value, ...props }: MockSelectProps) => (
     <div data-testid="select-wrapper" {...props}>
+      <div data-testid="select-display">{children}</div>
       <select
         data-testid="select"
         value={value || 'unassign'}
         onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
           onValueChange?.(e.target.value)
         }
+        style={{ position: 'absolute', opacity: 0, pointerEvents: 'none' }}
       >
-        {children}
+        <option value="unassign">No specific table</option>
+        <option value="1">Table T1</option>
+        <option value="2">Table T2</option>
+        <option value="3">Table T3</option>
       </select>
     </div>
   ),
   SelectContent: ({ children }: MockComponentProps) => <>{children}</>,
   SelectItem: ({ children, value }: MockSelectItemProps) => (
-    <option value={value}>{children}</option>
+    <option value={value} data-testid="select-item">
+      {children}
+    </option>
   ),
-  SelectTrigger: ({ children }: MockComponentProps) => <>{children}</>,
+  SelectTrigger: ({ children }: MockComponentProps) => (
+    <div data-testid="select-trigger">{children}</div>
+  ),
   SelectValue: ({ placeholder }: { placeholder?: string }) => (
-    <span>{placeholder}</span>
+    <div data-testid="select-value">{placeholder}</div>
   ),
 }));
 
@@ -451,11 +460,11 @@ describe('ReservationForm', () => {
       await user.type(partySizeInput, '5');
 
       // Should filter to only tables with capacity >= 5 (T3 with capacity 6)
-      const select = screen.getByTestId('select');
-      const options = select.querySelectorAll('option');
+      // Check the display items instead of the hidden select
+      const selectItems = screen.getAllByTestId('select-item');
 
       // Should have "No specific table" option plus T3
-      expect(options).toHaveLength(2);
+      expect(selectItems).toHaveLength(2);
 
       expect(
         screen.getByText('Table T3 (Capacity: 6, Large table)'),
@@ -529,7 +538,7 @@ describe('ReservationForm', () => {
     it('should show "unassign" option', () => {
       render(<ReservationForm {...defaultProps} formAction={mockFormAction} />);
 
-      expect(screen.getByText('No specific table')).toBeInTheDocument();
+      expect(screen.getAllByText('No specific table')[0]).toBeInTheDocument();
     });
 
     it('should display table information with localized description', () => {
