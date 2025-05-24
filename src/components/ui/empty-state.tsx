@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils/cn';
-import { FileSearch } from 'lucide-react'; // Or another relevant icon
+import { FileSearch } from 'lucide-react';
 import React from 'react';
 import { Button } from '@/components/ui/button';
 
