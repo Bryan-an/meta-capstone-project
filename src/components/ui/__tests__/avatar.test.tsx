@@ -263,6 +263,44 @@ describe('Avatar Components', () => {
 
       expect(handleLoadingStatusChange).toHaveBeenCalledWith('error');
     });
+
+    it('should handle missing alt text on image', () => {
+      render(
+        <Avatar>
+          <AvatarImage src="/test.jpg" />
+        </Avatar>,
+      );
+
+      const image = screen.getByTestId('avatar-image');
+      expect(image).toBeInTheDocument();
+      expect(image).not.toHaveAttribute('alt');
+    });
+
+    it('should handle null src on image', () => {
+      render(
+        <Avatar>
+          <AvatarImage src={null as unknown as string} alt="Null src" />
+        </Avatar>,
+      );
+
+      const image = screen.getByTestId('avatar-image');
+      expect(image).toBeInTheDocument();
+      expect(image).toHaveAttribute('alt', 'Null src');
+      expect(image).not.toHaveAttribute('src');
+    });
+
+    it('should handle undefined src on image', () => {
+      render(
+        <Avatar>
+          <AvatarImage src={undefined} alt="Undefined src" />
+        </Avatar>,
+      );
+
+      const image = screen.getByTestId('avatar-image');
+      expect(image).toBeInTheDocument();
+      expect(image).toHaveAttribute('alt', 'Undefined src');
+      expect(image).not.toHaveAttribute('src');
+    });
   });
 
   describe('AvatarFallback', () => {
@@ -594,30 +632,6 @@ describe('Avatar Components', () => {
 
       const fallback = screen.getByTestId('avatar-fallback');
       expect(fallback).toHaveTextContent(longText);
-    });
-
-    it('should handle missing alt text on image', () => {
-      render(
-        <Avatar>
-          <AvatarImage src="/test.jpg" />
-        </Avatar>,
-      );
-
-      const image = screen.getByTestId('avatar-image');
-      expect(image).toBeInTheDocument();
-      expect(image).not.toHaveAttribute('alt');
-    });
-
-    it('should handle empty src on image', () => {
-      render(
-        <Avatar>
-          <AvatarImage src="" alt="Empty src" />
-        </Avatar>,
-      );
-
-      const image = screen.getByTestId('avatar-image');
-      expect(image).toBeInTheDocument();
-      expect(image).toHaveAttribute('alt', 'Empty src');
     });
   });
 
