@@ -59,7 +59,7 @@ export function SpecialCard({
         <CardTitle className="text-xl font-bold">{name}</CardTitle>
 
         <p className="text-secondary-foreground text-xl font-semibold">
-          {typeof price === 'number'
+          {typeof price === 'number' && !isNaN(price)
             ? `$${price.toFixed(2)}`
             : 'Price unavailable'}
         </p>
