@@ -674,9 +674,11 @@ describe('Avatar Components', () => {
       render(
         <div>
           <button>Before</button>
+
           <Avatar tabIndex={0}>
             <AvatarFallback>FM</AvatarFallback>
           </Avatar>
+
           <button>After</button>
         </div>,
       );
