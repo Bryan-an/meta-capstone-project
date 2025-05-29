@@ -79,13 +79,10 @@ export default function LoginPage(): React.ReactElement {
       });
 
       if (error) {
-        console.error('Google Sign-In Error:', error);
         setGoogleError(error.message || t('googleSignInError'));
       }
       // On success, Supabase handles the redirect to Google.
     } catch (err) {
-      console.error('Unexpected Google Sign-In Error:', err);
-
       if (err instanceof Error) {
         setGoogleError(err.message || t('googleSignInError'));
       } else if (typeof err === 'string') {
