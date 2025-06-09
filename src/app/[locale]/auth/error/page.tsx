@@ -44,7 +44,6 @@ export default function AuthErrorPage() {
       }
     } catch {
       // If translation fails, it's not a known key, so stick with a generic message
-      // console.warn(`No translation for error key: ${errorParam}`);
     }
   }
 
