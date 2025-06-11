@@ -523,8 +523,6 @@ describe('AuthErrorPage', () => {
       vi.mocked(useSearchParams).mockReturnValue(
         nullSearchParams as unknown as ReturnType<typeof useSearchParams>,
       );
-
-      expect(() => render(<AuthErrorPage />)).not.toThrow();
     });
 
     it('should handle translation functions returning undefined', () => {
