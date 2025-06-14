@@ -54,7 +54,6 @@ export async function GET(
     const { error } = await supabase.auth.exchangeCodeForSession(code);
 
     if (error) {
-      console.error('OAuth code exchange error:', error);
       errorOccurred = true;
       specificErrorType = 'OAuthFailed';
     }
@@ -66,12 +65,10 @@ export async function GET(
     });
 
     if (error) {
-      console.error('OTP verification error:', error);
       errorOccurred = true;
     }
   } else {
     // Missing necessary parameters for either flow
-    console.error('Callback called without code or token_hash/type.');
     errorOccurred = true;
     specificErrorType = 'MissingParameters';
   }
