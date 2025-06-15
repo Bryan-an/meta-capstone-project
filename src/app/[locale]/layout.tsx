@@ -19,7 +19,7 @@ type Locale = (typeof locales)[number];
  * Static metadata for the root layout.
  */
 export const metadata: Metadata = {
-  metadataBase: new URL('http://localhost:3000'), // TODO: Replace with actual domain
+  metadataBase: new URL('https://meta-capstone-project-fawn.vercel.app'),
   title: 'Little Lemon Restaurant',
   description:
     'Reserve a table at Little Lemon. Delicious food and a great atmosphere.',
@@ -31,7 +31,12 @@ export const metadata: Metadata = {
     'chicago',
     'little lemon',
   ],
-  authors: [{ name: 'Little Lemon Team', url: 'http://localhost:3000' }], // TODO: Replace with actual domain
+  authors: [
+    {
+      name: 'Little Lemon Team',
+      url: 'https://meta-capstone-project-fawn.vercel.app',
+    },
+  ],
   icons: {
     icon: '/favicon.ico',
     apple: '/images/apple-icon.png',
@@ -40,7 +45,7 @@ export const metadata: Metadata = {
     title: 'Little Lemon Restaurant - Book Your Table',
     description:
       'Experience authentic Mediterranean cuisine at Little Lemon. Reserve your table online!',
-    url: 'http://localhost:3000', // TODO: Replace with actual domain
+    url: 'https://meta-capstone-project-fawn.vercel.app',
     siteName: 'Little Lemon Restaurant',
     images: [
       {
